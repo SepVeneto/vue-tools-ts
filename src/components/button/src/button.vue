@@ -1,22 +1,14 @@
 <script lang="tsx">
 import { computed, defineComponent } from "vue";
 import { ElMessageBox } from 'element-plus';
+import { buttonProps } from './type';
 
 const SPECIAL = Object.freeze<string>([])
 
 export default defineComponent({
   name: 'BcButton',
   emits: ['click'],
-  props: {
-    confirm: [Boolean, String],
-    tooltip: Boolean,
-    icon: String,
-    mini: Boolean,
-    type: {
-      type: String,
-      default: null,
-    }
-  },
+  props: buttonProps,
   setup(props, context) {
     const isSpecialButton = computed(() => {
       return SPECIAL.includes(props.type)
@@ -65,7 +57,6 @@ export default defineComponent({
         <span>{isSpecialButton.value || props.tooltip || context.slots.default?.()}</span>
       </el-button>
     )
-    console.log(button())
     return () => (context.slots.default && (props.tooltip || isSpecialButton.value))
       ? tooltip(button)
       : button()
