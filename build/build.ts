@@ -161,18 +161,19 @@ async function buildEntry() {
 ;(async () => {
   console.log('build components')
   await buildComponents()
-  console.log('success')
 
   console.log('build entry')
   await buildEntry()
-  console.log('success')
 })().then(() => {
-  console.log('success')
+  green('success')
   process.exit(0)
 })
 
-function red(str) {
+function red(str: string) {
   console.error(chalk.red(str))
+}
+function green(str: string) {
+  console.log(chalk.green(str))
 }
 
 
