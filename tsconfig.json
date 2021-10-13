@@ -12,17 +12,18 @@
     "sourceMap": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "types": [
-      "webpack-env"
-    ],
-    "paths": {
-      "@/*": [
-        "src/*",
-      ],
-      "basic/*": [
-        "src/components/basic/*"
-      ]
-    },
+    "noImplicitAny": false,
+    // "types": [
+    //   "webpack-env"
+    // ],
+    // "paths": {
+    //   "@/*": [
+    //     "src/*",
+    //   ],
+    //   "basic/*": [
+    //     "src/components/basic/*"
+    //   ]
+    // },
     "lib": [
       "esnext",
       "dom",
@@ -30,13 +31,11 @@
       "scripthost"
     ]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
+  // "include": [
+  //   "packages/**/*.ts",
+  //   "packages/**/*.tsx",
+  //   "packages/**/*.vue",
+  // ],
   "exclude": [
     "node_modules"
   ]

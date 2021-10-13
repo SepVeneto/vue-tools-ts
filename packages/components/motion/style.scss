@@ -1,0 +1,26 @@
+.transition-config {
+  &.fade-left-enter-active,
+  &.fade-right-enter-active,
+  &.fade-up-enter-active,
+  &.fade-down-enter-active {
+    transition: all .3s ease;
+    transition-delay: v-bind(delay);
+  }
+}
+
+.fade-left-enter-from {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+.fade-right-enter-from {
+  transform: translateX(10px);
+  opacity: 0;
+}
+.fade-up-enter-from {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+.fade-down-enter-from {
+  transform: translateY(10px);
+  opacity: 0;
+}
