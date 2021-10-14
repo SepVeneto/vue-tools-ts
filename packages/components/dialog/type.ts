@@ -1,4 +1,4 @@
-import { ExtractPropTypes } from "@vue/runtime-core";
+import { ExtractPropTypes } from "vue";
 export const dialogProps = {
   /**
    * 是否隐藏底部操作栏

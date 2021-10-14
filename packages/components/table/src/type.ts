@@ -1,4 +1,4 @@
-import { PropType, ExtractPropTypes } from '@vue/runtime-core';
+import { PropType, ExtractPropTypes } from 'vue';
 import { TableColumnCtx } from 'element-plus/lib/components/table/src/table-column/defaults';
 export type CellType = {
   row: Record<string, unknown>,

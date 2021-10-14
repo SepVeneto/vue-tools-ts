@@ -1,7 +1,7 @@
 import { PropType, ExtractPropTypes } from 'vue';
 export type SearchOperate = 'create' | 'search' | 'reset' | 'upload' | 'export' | 'advance';
 
-export type RenderInputCofnigType = {
+export type RenderInputConfigType = {
   catalog: 'input' | 'select' | 'datepicker',
   prop: string,
   name?: string,
@@ -29,7 +29,7 @@ export const searchProps = {
    * 搜索栏支持的查询内容
    */
   config: {
-    type: Array as PropType<RenderInputCofnigType[]>,
+    type: Array as PropType<RenderInputConfigType[]>,
     default: () => [],
   },
   /**
