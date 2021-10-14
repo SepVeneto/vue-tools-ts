@@ -1,7 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "websites"
   ],
   "scripts": {
     "bootstrap": "npm i && lerna bootstrap",
@@ -14,6 +15,7 @@
     "website-build": "webpack build --config ./website/webpack.config.js"
   },
   "dependencies": {
+    "@basic-components/components": "workspace:*",
     "@vitejs/plugin-vue": "^1.9.3",
     "@vitejs/plugin-vue-jsx": "^1.2.0",
     "core-js": "^3.6.5",

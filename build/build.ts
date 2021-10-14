@@ -15,6 +15,7 @@ import typescript from '@rollup/plugin-typescript'
 const EP_PREFIX = 'element-plus'
 const VUE_REGEX = 'vue'
 const VUE_MONO = '@vue'
+const indexRoot = path.resolve(__dirname, '..', 'packages', 'basic-components')
 const compRoot = path.resolve(__dirname, '../', './packages', './components');
 const outputDir = path.resolve(__dirname, '../', './dist', './basic-components');
 const plugins = [
@@ -32,12 +33,14 @@ const plugins = [
   esbuild(),
 ]
 
-const pathsRewriter = (id) => {
-  chalk.green(id)
+const pathsRewriter = (id: string) => {
   if (id.startsWith(`${EP_PREFIX}/components`))
     return id.replace(`${EP_PREFIX}/components`, '..')
   if (id.startsWith(EP_PREFIX) && ['icons'].every((e) => !id.endsWith(e)))
     return id.replace(EP_PREFIX, EP_PREFIX)
+  if (id.startsWith('@basic-components')) {
+    return id.replace('@basic-components', '.')
+  }
   return id
 }
 
@@ -154,6 +157,57 @@ async function buildEntry() {
   }
 }
 
+async function buildIndexEntry() {
+  const entry = path.resolve(indexRoot, 'index.ts')
+  const config = {
+    input: entry,
+    plugins: [
+      esbuild(),
+    ],
+    external: (id: string) => {
+      return (
+        id.startsWith('@basic-components') ||
+        id.startsWith(VUE_REGEX) ||
+        id.startsWith(VUE_MONO) ||
+        id.startsWith(EP_PREFIX)
+      )
+    },
+  }
+  try {
+    const bundle = await rollup.rollup(config)
+    await bundle.write({
+      format: 'es',
+      file: `${outputDir}/es/index.js`,
+      plugins: [
+        filesize({
+          reporter
+        })
+      ],
+      paths: pathsRewriter,
+    })
+
+    await bundle.write({
+      format: 'cjs',
+      file: `${outputDir}/lib/index.js`,
+      plugins: [
+        filesize({
+          reporter
+        })
+      ],
+      exports: 'named',
+      paths: pathsRewriter,
+    })
+  } catch (e: any) {
+    console.error(chalk.red(e.message))
+    process.exit(1)
+  }
+}
+async function copyFiles() {
+  await fs.promises.cp(path.resolve(indexRoot, 'index.d.ts'), path.resolve(outputDir, 'lib', 'index.d.ts'));
+  await fs.promises.cp(path.resolve(indexRoot, 'index.d.ts'), path.resolve(outputDir, 'es', 'index.d.ts'));
+  await fs.promises.cp(path.resolve(indexRoot, 'package.json'), path.resolve(outputDir, 'package.json'));
+}
+
 // function pathsRewriter(id: string) {
 //   if()
 // }
@@ -164,6 +218,12 @@ async function buildEntry() {
 
   console.log('build entry')
   await buildEntry()
+
+  console.log('build index')
+  await buildIndexEntry()
+
+  console.log('copy type/package')
+  await copyFiles()
 })().then(() => {
   green('success')
   process.exit(0)
