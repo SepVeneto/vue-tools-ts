@@ -1,4 +1,4 @@
-import { ExtractPropTypes } from "@vue/runtime-core";
+import { ExtractPropTypes } from "vue";
 export const motionProps = {
   type: String,
   direction: String,

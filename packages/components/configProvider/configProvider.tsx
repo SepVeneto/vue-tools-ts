@@ -1,5 +1,5 @@
-import { reactive } from '@vue/reactivity';
-import { ExtractPropTypes, PropType, provide } from '@vue/runtime-core';
+import { reactive } from 'vue';
+import { ExtractPropTypes, PropType, provide } from 'vue';
 import { defineComponent } from 'vue';
 interface TableProps {
   arrayName?: string,

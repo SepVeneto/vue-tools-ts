@@ -1,6 +1,6 @@
 import { defineComponent, getCurrentInstance, ref, watch, h } from 'vue'
 import useConfigInject from '../_util/hooks/useConfigInject';
-import { RenderInputCofnigType, searchProps } from './type';
+import { RenderInputConfigType, searchProps } from './type';
 import renderUnit from '../_util/renderUnit';
 
 export default defineComponent({
@@ -13,7 +13,7 @@ export default defineComponent({
 
     const uploadVisible = ref(false);
     const visible = ref(false);
-    const searchConfig = ref<RenderInputCofnigType[]>();
+    const searchConfig = ref<RenderInputConfigType[]>();
     const defaultParams = ref();
 
     watch(() => props.config, (config) => {
