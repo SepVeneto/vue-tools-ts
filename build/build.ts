@@ -11,6 +11,7 @@ import esbuild from 'rollup-plugin-esbuild'
 import babel from '@rollup/plugin-babel'
 import chalk from 'chalk'
 import typescript from '@rollup/plugin-typescript'
+import scss from 'rollup-plugin-scss'
 
 const EP_PREFIX = 'element-plus'
 const VUE_REGEX = 'vue'
@@ -19,7 +20,9 @@ const indexRoot = path.resolve(__dirname, '..', 'packages', 'basic-components')
 const compRoot = path.resolve(__dirname, '../', './packages', './components');
 const outputDir = path.resolve(__dirname, '../', './dist', './basic-components');
 const plugins = [
-  css({ output: false }),
+  scss({
+    output: 'bundle.css'
+  }),
   // babel({ babelHelpers: 'bundled', extensions: ['.tsx'] }),
   // vue({
   //   target: 'browser',

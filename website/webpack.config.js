@@ -81,7 +81,7 @@ const config = {
           },
           {
             loader: path.resolve(__dirname, './md-loader/index.js'),
-          }
+          },
         ]
       },
     ]

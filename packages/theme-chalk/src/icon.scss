@@ -1,0 +1,39 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b(icon) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  &.is-disabled {
+    pointer-events: none;
+  }
+  
+  @include e(badge) {
+    padding: 2px;
+    font-size: 12px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 16px;
+    border-radius: 16px;
+    transform: translate(50%, -50%);
+    transform-origin: 100%;
+    background-color: #ee0a24;
+    color: #fff;
+  }
+  @include e(placeholder) {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+  @include e(svg-icon) {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+}

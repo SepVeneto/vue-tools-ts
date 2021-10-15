@@ -1,0 +1,7 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b(upload) {
+  @include e(text-info) {
+    cursor: pointer;
+  }
+}
