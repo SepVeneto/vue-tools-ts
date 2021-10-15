@@ -1,0 +1,47 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b(input) {
+  &.no-border {
+    > .el-input__inner {
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      padding-left: 0;
+      border: 0;
+      font-family: 'YaHei';
+      line-height: 1.5;
+    }
+    > .el-textarea__inner {
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      padding-left: 0;
+      border: 0;
+      font-family: 'YaHei';
+      line-height: 1.5;
+      resize: none;
+      padding: 0;
+    }
+  }
+  &.bottom-border {
+    > .el-input__inner {
+      background-color: transparent;
+      border-radius: initial;
+      padding-left: 0;
+      border: 0;
+      border-bottom: 1px solid #DCDFE6;
+      font-family: 'YaHei';
+      line-height: 1.5;
+    }
+    > .el-textarea__inner {
+      background-color: transparent;
+      border-radius: initial;
+      padding-left: 0;
+      border: 0;
+      border-bottom: 1px solid #DCDFE6;
+      font-family: 'YaHei';
+      line-height: 1.5;
+      resize: none;
+    }
+  }
+}

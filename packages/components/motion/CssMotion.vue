@@ -7,7 +7,6 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue'
 import { motionProps } from './type';
-import './style.scss'
 
 export default defineComponent({
   name: 'BcMotion',
