@@ -1,7 +1,7 @@
 @use 'mixins/mixins.scss' as *;
 
 @include b(table) {
-  .el-table__row:hover .cell-edit {
+  .el-table__row:hover .bc-table-cell-edit {
     padding: 5px 15px;
     border: 1px solid #d9d9d9;
     border-radius: 5px;

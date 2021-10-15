@@ -32,7 +32,7 @@ export default defineComponent({
 
     const editInput = () => (
       <bc-input
-        class="edit-input"
+        class="bc-table-input"
         ref={inputRef}
         model-value={cell.value}
         v-focus
@@ -49,7 +49,7 @@ export default defineComponent({
       </bc-input>
     );
     const displayInput = () => (
-      <div class="cell-edit" onClick={toggleEdit}>{props.modelValue}</div>
+      <div class="bc-table-cell-edit" onClick={toggleEdit}>{props.modelValue}</div>
     )
     return () => editing.value ? editInput() : displayInput();
   },

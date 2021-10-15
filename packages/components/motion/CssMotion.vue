@@ -1,5 +1,12 @@
 <template>
-  <transition class="transition-config" :name="name" v-bind="$attrs">
+  <transition
+    class="bc-motion-config"
+    :name="name"
+    v-bind="$attrs"
+    :style="{
+      transitionDelay: delay
+    }"
+  >
     <slot v-if="show" />
   </transition>
 </template>
@@ -7,7 +14,6 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue'
 import { motionProps } from './type';
-import './style.scss'
 
 export default defineComponent({
   name: 'BcMotion',
@@ -15,7 +21,7 @@ export default defineComponent({
   setup(props) {
     const show = ref(false);
     const name = computed(() => {
-      return `${props.type}-${props.direction}`
+      return `bc-motion-${props.type}-${props.direction}`
     })
     onMounted(() => {
       show.value = true;

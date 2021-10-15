@@ -19,10 +19,10 @@
   }
 }
 @include b(motion-config) {
-  &.fade-left-enter-active,
-  &.fade-right-enter-active,
-  &.fade-up-enter-active,
-  &.fade-down-enter-active {
+  &.bc-motion-fade-left-enter-active,
+  &.bc-motion-fade-right-enter-active,
+  &.bc-motion-fade-up-enter-active,
+  &.bc-motion-fade-down-enter-active {
     transition: all .3s ease;
   }
 }
