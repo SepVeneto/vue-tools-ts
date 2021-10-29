@@ -1,4 +1,4 @@
-import { App, Plugin } from '@vue/runtime-dom';
+import { App, Plugin } from 'vue';
 import Select from './select.vue';
 
 Select.install = (app: App) => {

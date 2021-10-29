@@ -1,5 +1,5 @@
 import { ComponentInternalInstance } from "vue";
-import { RenderInputCofnigType } from "../search/search";
+import { RenderInputConfigType } from "../search/type";
 
 export type RenderContextType = {
   handleSearch?: () => void,
@@ -28,7 +28,7 @@ function handleSearch(context: RenderContextType) {
 export default (
   h: unknown,
   value: Record<string, unknown>,
-  config: RenderInputCofnigType,
+  config: RenderInputConfigType,
   context: RenderContextType,
 ) => {
   const { catalog, prop, name, options, ...params } = config;

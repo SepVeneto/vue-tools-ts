@@ -1,0 +1,25 @@
+@use 'config' as *;
+
+@mixin b($block) {
+  $B: $namespace + '-' + $block !global;
+  .#{$B} {
+    @content;
+  }
+}
+
+@mixin e($element) {
+  $currentSelector: '';
+  @each $unit in $element {
+    $currentSelector:
+      #{$currentSelector} +
+      '.' +
+      $B +
+      $element-separator +
+      $unit;
+    @at-root {
+      #{$currentSelector} {
+        @content;
+      }
+    }
+  }
+}

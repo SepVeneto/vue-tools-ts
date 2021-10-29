@@ -1,4 +1,4 @@
-import { App, Plugin } from '@vue/runtime-dom';
+import { App, Plugin } from 'vue';
 import Clipboard from './clipboard.vue';
 Clipboard.install = (app: App) => {
   console.log(Clipboard.name)

@@ -1,0 +1,31 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b(motion) {
+  @include e(fade-left-enter-from) {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  @include e(fade-right-enter-from) {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  @include e(fade-up-enter-from) {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  @include e(fade-down-enter-from) {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  @include e((fade-left-enter-active,fade-right-enter-active,fade-up-enter-active,fade-down-enter-active)) {
+    transition: all .3s ease;
+  }
+}
+// @include b(motion-config) {
+//   &.bc-motion-fade-left-enter-active,
+//   &.bc-motion-fade-right-enter-active,
+//   &.bc-motion-fade-up-enter-active,
+//   &.bc-motion-fade-down-enter-active {
+//     transition: all .3s ease;
+//   }
+// }

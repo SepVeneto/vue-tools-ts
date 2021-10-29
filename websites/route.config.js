@@ -1,4 +1,4 @@
-import { defineAsyncComponent } from '@vue/runtime-core';
+import { defineAsyncComponent } from 'vue';
 import config from './nav.config.json';
 
 const LoadingComponent = {
