@@ -77,5 +77,8 @@
     "progress-bar-webpack-plugin": "^2.1.0",
     "transliteration": "^2.2.0",
     "webpack-dev-server": "^4.1.1"
-  }
+  },
+  "files": [
+    "dist/basic-components"
+  ]
 }

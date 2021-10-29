@@ -51,14 +51,18 @@ module.exports = function(source) {
   }
 
   output.push(content.slice(start))
+  // const result = `
+  // <template>
+  //   <section class="content element-doc">
+  //     ${output.join('')}
+  //     <right-nav />
+  //   </section>
+  // </template>
+  // ${pageScript}
   const result = `
   <template>
-    <section class="content element-doc">
-      ${output.join('')}
-      <right-nav />
-    </section>
+    <div>test</div>
   </template>
-  ${pageScript}
   `
   return result;
 }

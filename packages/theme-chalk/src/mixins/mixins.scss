@@ -8,10 +8,18 @@
 }
 
 @mixin e($element) {
-  $currentSelector: '.' + $B + $element-separator + $element;
-  @at-root {
-    #{$currentSelector} {
-      @content;
+  $currentSelector: '';
+  @each $unit in $element {
+    $currentSelector:
+      #{$currentSelector} +
+      '.' +
+      $B +
+      $element-separator +
+      $unit;
+    @at-root {
+      #{$currentSelector} {
+        @content;
+      }
     }
   }
 }
