@@ -1,6 +1,6 @@
 import { defineComponent, getCurrentInstance, onMounted, ref, watch, PropType } from 'vue';
 import { TableColumnCtx } from 'element-plus/lib/components/table/src/table-column/defaults';
-import { getValue, setValue } from '../../_util/tools';
+import { extractObject, getValue, setValue } from '../../_util/tools';
 import cellEdit from './cellEdit';
 
 export type RowType = {
@@ -16,6 +16,7 @@ export default defineComponent({
     cellEdit,
   },
   props: {
+    rowKey: [String, Function],
     disableTravel: Boolean,
     bodyBorder: Boolean,
     wrapHeader: Boolean,
@@ -46,7 +47,11 @@ export default defineComponent({
       tableConfig.value = [...config] ;
     }, { immediate: true, deep: true });
 
-    function getRowKey(row: any, rowKey: string | ((row: any) => string), index: number) {
+    function getRowKey(row: any, rowKey?: string | Function, index?: number) {
+      if (!rowKey) {
+        console.warn('不推荐使用index作为key')
+        return index;
+      }
       if (typeof rowKey === 'function') {
         return rowKey(row);
       } else if (row[rowKey]) {
@@ -74,7 +79,7 @@ export default defineComponent({
             context.emit('select', [row]);
           }
         }}
-        label={getRowKey(row, context.attrs.rowKey as any, index)}
+        label={getRowKey(row, props.rowKey, index)}
         disabled={config.selectable ? !config.selectable(row) : false}
       ><span></span></el-radio>
     )
@@ -94,6 +99,10 @@ export default defineComponent({
       if (config.type === 'expand') {
         return context.slots.expand;
       } else if (config.type === 'radio') {
+        // 不知道哪儿来的-1
+        if (!~$index) {
+          return;
+        }
         return renderRadio(row, $index, config);
       } else if (config.editable) {
         return renderCellEdit(row, column, config);
@@ -117,10 +126,7 @@ export default defineComponent({
                   return header ? header({column, $index}) : <span>{column.label}</span>
                 })
               }}
-              label={config.label}
-              prop={config.prop}
-              width={config.width}
-              showOverflowTooltip={config.showOverflowTooltip}
+              {...extractObject(config, ['children'], 'exclude')}
             ></el-table-column>
           )
         })}

@@ -22,7 +22,7 @@ export default defineComponent({
     watch(() => props.defaultValue, (value) => {
       defaultParams.value = JSON.parse(JSON.stringify({ ...props.modelValue, ...value}));
       context.emit('update:modelValue', { ...props.modelValue, ...defaultParams.value });
-    })
+    }, { immediate: true })
 
     function updateData(key: string, val: string | string[]) {
       context.emit('update:modelValue', { ...props.modelValue, [key]: val });

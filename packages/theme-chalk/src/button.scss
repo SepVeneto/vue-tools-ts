@@ -1,0 +1,11 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b(button) {
+  &.mini {
+    min-height: 24px !important;
+    width: 24px;
+    padding: 5px !important;
+    // line-height: normal!important;
+    box-sizing: border-box;
+  }
+}

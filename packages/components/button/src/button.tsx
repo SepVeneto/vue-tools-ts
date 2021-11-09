@@ -43,7 +43,7 @@ export default defineComponent({
     )
     const button = () => (
       <el-button
-        class={['bc-button', {mini: props.mini || isSpecialButton}]}
+        class={['bc-button', {mini: props.mini || isSpecialButton.value}]}
         {...{
           ...context.attrs,
           type: props.type === 'delete' ? 'danger' : (isSpecialButton.value ? 'primary' : props.type),
@@ -51,9 +51,10 @@ export default defineComponent({
           onClick: handleClick,
         }}
       >
-        {(props.icon || isSpecialButton.value) && !context.attrs.loading
+        <span>{props.tooltip || context.slots.default?.()}</span>
+        {/* {(props.icon || isSpecialButton.value) && !context.attrs.loading
           && <svg-icon icon={props.icon || specialIcon.value} />}
-        <span>{isSpecialButton.value || props.tooltip || context.slots.default?.()}</span>
+        <span>{isSpecialButton.value || props.tooltip || context.slots.default?.()}</span> */}
       </el-button>
     )
     return () => (context.slots.default && (props.tooltip || isSpecialButton.value))

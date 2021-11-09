@@ -1,0 +1,19 @@
+.custom-block {
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin: 20px 0;
+  .custom-block-title {
+    font-weight: 700;
+  }
+  p:not(.custom-block-title) {
+    font-size: 0.9rem;
+  }
+  &.warning {
+    background-color: var(--el-color-danger-lighter);
+    border-left: 5px solid var(--el-color-danger);
+  }
+  &.tip {
+    background-color: var(--el-color-primary-light-9);
+    border-left: 5px solid var(--el-color-primary);
+  }
+}

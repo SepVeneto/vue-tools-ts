@@ -2,7 +2,7 @@ import { App } from 'vue';
 import components from './components';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import zhCn from 'element-plus/es/locale/lang/zh-cn.mjs'
 
 const installer = function() {
   const install = (app: App) => {

@@ -4,12 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vitepress dev",
+    "dev": "vitepress dev .",
+    "build": "vitepress build .",
+    "serve": "vitepress serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vitepress": "^0.20.0"
+    "@types/markdown-it": "^12.2.3",
+    "@types/markdown-it-container": "^2.0.4",
+    "@types/prismjs": "^1.16.6",
+    "basic-components": "workspace:*",
+    "vitepress": "^0.20.1"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "prismjs": "^1.25.0"
   }
 }

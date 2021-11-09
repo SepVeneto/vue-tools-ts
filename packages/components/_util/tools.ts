@@ -74,4 +74,34 @@ export function copyText(text: string) {
     }
   })
 }
- 
+
+export function extractObject(
+  obj: Record<string, any>,
+  keys: string[],
+  action: 'include' | 'exclude' = 'include',
+): Record<string, any> {
+  const res = {};
+  for (const key in obj) {
+    if (action === 'include') {
+      res[key] = obj[key];
+    }
+    if (action === 'exclude') {
+      if (keys.includes(key)) {
+        continue;
+      } else {
+        res[key] = obj[key]
+      }
+    }
+  }
+  return res;
+}
+
+export function toCamel(name: string): string {
+  const token = name.split('-');
+  return token.map((item, index) => {
+    if (index === 0) {
+      return item;
+    }
+    return item.replace(/(.)/, letter => letter.toUpperCase())
+  }).join('')
+}

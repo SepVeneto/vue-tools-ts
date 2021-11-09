@@ -45,12 +45,12 @@ export const selectProps = {
    * 选择框的宽度
    */
   width: [String, Number],
-  modelValue: [String, Array],
+  modelValue: [String, Array, Object, Number],
   /**
    * 拉取远程数据时调用的函数，支持promise
    */
   api: {
-    type: Object as PropType<() => Promise<ApiResponseType>>,
+    type: Function as PropType<() => Promise<ApiResponseType>>,
     validator(val: () => unknown | selectApiType): boolean {
       const allow = ['users', 'groups', 'ips', 'shterm'];
       return typeof val === 'function' || allow.includes(val)

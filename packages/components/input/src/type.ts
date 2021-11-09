@@ -27,10 +27,6 @@ export const inputProps = {
     type: [String, Number],
     default: '100%',
   },
-  /**
-   * 密码输入框，通常用于不想触发浏览器的自动填写
-   */
-  password: Boolean,
 }
 
 export type InputProps = Partial<ExtractPropTypes<typeof inputProps>>;

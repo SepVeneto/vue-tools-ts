@@ -1,4 +1,2 @@
-module.exports = {
-  title: 'basic说明文档',
-  description: 'basic说明文档',
-}
+const { config } = require('./config/index.ts')
+module.exports = config

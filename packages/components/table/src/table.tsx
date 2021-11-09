@@ -184,6 +184,9 @@ export default defineComponent({
             total={props.custom ? props.total: arrayTotal.value}
           />)
     }
+    context.expose({
+      getList,
+    })
     return () => (
       <section class="bc-table-wrap">
         <custom-table

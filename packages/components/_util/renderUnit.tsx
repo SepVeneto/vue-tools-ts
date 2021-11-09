@@ -51,7 +51,7 @@ export default (
         onChange: () => handleSearch(context),
       }}
       options={config.options}
-      {...{ attrs: params }}
+      { ...params }
     />
   } else if (catalog === 'datepicker') {
     return <bc-date-picker
