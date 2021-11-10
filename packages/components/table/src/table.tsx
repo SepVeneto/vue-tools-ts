@@ -192,7 +192,6 @@ export default defineComponent({
         <custom-table
           class="bc-table"
           ref={customTableRef}
-          v-loading={loading.value}
           config={tableConfig.value}
           data={props.simple ? simpleData.value : tableData.value}
           span-method={props.colspanOptions ? spanMethod : null}

@@ -1,12 +1,24 @@
 <template>
-  <bc-table
+  <!-- <custom-table
     :config="tableConfig"
     :data="tableData"
-  ></bc-table>
+  ></custom-table> -->
+  <div>test</div>
+  <el-table :data="tableData">
+    <el-table-column label="姓名" prop="name" />
+    <!-- <el-table-column
+      v-for="item in tableConfig"
+      :key="item.prop"
+      :label="item.label"
+      :prop="item.prop"
+    > -->
+    <!-- </el-table-column> -->
+  </el-table>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, toRaw } from 'vue'
+import customTable from '../../../packages/components/table/src/simpleTable'
 export default defineComponent({
   name: 'BasicTable',
 })

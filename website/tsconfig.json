@@ -8,7 +8,7 @@
     // "disableReferencedProjectLoad": true,
     "target": "ESNext",
     // "lib": [],
-    // "jsx": "preserve",
+    "jsx": "preserve",
     // "experimentalDecorators": true,
     // "emitDecoratorMetadata": true,
     // "jsxFactory": "",

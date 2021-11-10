@@ -18,6 +18,7 @@ const buildTransformers = () => {
     'trap-focus',
     'mousewheel',
     'resize',
+    'slots',
   ]
   directives.forEach((k) => {
     transformers[k] = transformer
