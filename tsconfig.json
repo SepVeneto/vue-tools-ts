@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es6",
+    "module": "es6",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -13,11 +13,13 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "noImplicitAny": false,
+    "allowJs": true,
     // "types": [
     //   "webpack-env"
     // ],
     // "paths": {
     //   "@/*": [
+      // "include": ["packages"],
     //     "src/*",
     //   ],
     //   "basic/*": [
@@ -31,12 +33,15 @@
       "scripthost"
     ]
   },
+  "include": ["packages"],
   // "include": [
   //   "packages/**/*.ts",
   //   "packages/**/*.tsx",
   //   "packages/**/*.vue",
   // ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/__test?__",
+    "**/dist"
   ]
 }
