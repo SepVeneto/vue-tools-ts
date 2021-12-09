@@ -1,5 +1,5 @@
 export type AnyType = {
-  [key: string]: unknown,
+  [key: string]: any,
 };
 export type CellConfigType = Partial<{
   unit: string,
@@ -13,7 +13,7 @@ export type CellConfigType = Partial<{
  * @param {boolean} disableTravel 禁用链式取值
  * @returns string
  */
-export function getValue(row: AnyType, column: string, config: CellConfigType = {}, disableTravel?: boolean): string | unknown {
+export function getValue(row: AnyType, column: string, config: CellConfigType = {}, disableTravel?: boolean): string {
   const emptyText = '';
   if (disableTravel) {
     return row[column] || emptyText;

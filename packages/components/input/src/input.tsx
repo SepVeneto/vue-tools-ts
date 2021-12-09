@@ -5,6 +5,7 @@ import { ElInput } from 'element-plus'
 
 export default defineComponent({
   name: 'BcInput',
+  inheritAttrs: false,
   components: {
     ElInput,
   },
@@ -20,15 +21,15 @@ export default defineComponent({
       return props.width;
     });
 
-    const borderClass = {
+    const borderClass = computed(() => ({
       none: 'no-border',
       bottom: 'bottom-border',
       all: '',
-    }[props.border];
+    }[props.border]));
     const input = () => (
       <el-input
         ref={inputRef}
-        class={['bc-input', borderClass]}
+        class={['bc-input', borderClass.value]}
         style={{width: inputWidth}}
         placeholder='请输入'
         spellcheck={false}
@@ -41,7 +42,7 @@ export default defineComponent({
         ></el-input>
     )
     const text = () => (
-      <span>{context.attrs.value}</span>
+      <span>{context.attrs.modelValue}</span>
     )
     return props.onlyDisplay ? text : input;
   },

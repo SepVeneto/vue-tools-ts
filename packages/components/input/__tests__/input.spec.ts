@@ -144,32 +144,79 @@ describe('Input.tsx', () => {
       expect(vm.input).toEqual('a')
       expect(el.value).toEqual('a')
     })
+    test('v-model', async () => {
+      const wrapper = _mount({
+        template: `
+          <bc-input v-model="input" />
+        `,
+        setup() {
+          const input = ref('veneto')
+          return {
+            input,
+          }
+        }
+      })
+
+      const vm = wrapper.vm;
+      const input = wrapper.find('input')
+
+      expect(input.element.value).toEqual('veneto')
+      vm.input = 'vv'
+      await sleep()
+      expect(input.element.value).toEqual('vv')
+      input.element.value = 'veneto';
+      input.element.dispatchEvent(new Event('input'));
+      await sleep()
+      expect(vm.input).toEqual('veneto')
+    })
   })
 
-  test('input width', async () => {
+  test('Input Only Display', async () => {
     const wrapper = _mount({
       template: `
-        <bc-input
-          :model-value="input"
-          :width="width"
-        />
+        <bc-input v-model="input" only-display />
       `,
       setup() {
-        const input = ref('')
-        const width = ref('')
+        const input = ref('veneto')
         return {
           input,
-          width
         }
       }
     })
 
-    const el = wrapper.element as HTMLElement;
+    expect(wrapper.classes()).not.toContain('el-input')
+    expect(wrapper.text()).toContain('veneto')
+  })
+
+  test('Input Border', async () => {
+    const wrapper = _mount({
+      template: `
+        <bc-input
+          :model-value="input"
+          :border="border"
+        />
+      `,
+      setup() {
+        const input = ref('veneto')
+        const border = ref('all')
+        return {
+          input,
+          border
+        }
+      }
+    })
+
     const vm = wrapper.vm;
     
-    vm.width = '200px'
+    vm.border = 'none';
+    await sleep();
+    expect(wrapper.classes()).toContain('no-border')
+    vm.border = 'bottom'
     await sleep()
-    console.log(el.style)
-    expect(el.style.width).toEqual('200px')
+    expect(wrapper.classes()).toContain('bottom-border')
+    vm.border = 'all'
+    await sleep()
+    expect(wrapper.classes()).not.toContain('no-border')
+    expect(wrapper.classes()).not.toContain('bottom-border')
   })
 })

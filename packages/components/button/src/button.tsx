@@ -1,5 +1,5 @@
-import { computed, defineComponent } from "vue";
-import { ElMessageBox } from 'element-plus';
+import { computed, defineComponent, h, Fragment, Teleport, Transition } from "vue";
+import { ElMessageBox, ElButton } from 'element-plus';
 import { buttonProps } from './type';
 
 const SPECIAL = Object.freeze<string>([])
@@ -7,6 +7,10 @@ const SPECIAL = Object.freeze<string>([])
 export default defineComponent({
   name: 'BcButton',
   emits: ['click'],
+  components: {
+    ElButton,
+    // ElTooltip,
+  },
   props: buttonProps,
   setup(props, context) {
     const isSpecialButton = computed(() => {
@@ -38,12 +42,13 @@ export default defineComponent({
         placement="top"
         v-slots={{content: () => <span>{context.slots.default?.()}</span>}}
       >
-        <span>{node()}</span>
+        <span>测试</span>
+        {/* <span>{node()}</span> */}
       </el-tooltip>
     )
     const button = () => (
       <el-button
-        class={['bc-button', {mini: props.mini || isSpecialButton}]}
+        class={['bc-button', {'bc-button--mini': props.mini || isSpecialButton.value}]}
         {...{
           ...context.attrs,
           type: props.type === 'delete' ? 'danger' : (isSpecialButton.value ? 'primary' : props.type),

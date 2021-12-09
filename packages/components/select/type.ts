@@ -20,6 +20,10 @@ export const selectProps = {
    */
   group: Boolean,
   /**
+   * 分组相关设置
+   */
+  groupProps: Object,
+  /**
    * 默认值
    */
   defaultValue: String,

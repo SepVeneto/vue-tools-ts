@@ -1,6 +1,8 @@
 <template>
   <el-select
     v-if="!onlyDisplay"
+    class="bc-select"
+    :popper-append-to-body="false"
     :model-value="modelValue"
     @update:modelValue="emitValue"
     @change="emitLabel"
@@ -12,10 +14,10 @@
         v-for="(groupOptions, index) in selectOptions"
         :key="index"
         :label="hasValue(groupOptions)"
-        :value="groupOptions[optionValue] == null ? groupOptions: groupOptions[optionValue]"
+        :value="groupOptions[groupValue]"
       >
         <el-option
-          v-for="item in groupOptions.children"
+          v-for="item in groupOptions[groupChildren]"
           :key="item[optionKey || optionValue]"
           :label="hasValue(item)"
           :value="item[optionValue] == null ? item : item[optionValue]"
@@ -46,12 +48,24 @@ import { computed, defineComponent, ref } from 'vue';
 import { getValue } from '../_util/tools'
 import { SelectProps, selectProps, SelectOptions, SelectOption } from './type';
 import useConfigInject from '../_util/hooks/useConfigInject';
+import { ElOption, ElOptionGroup, ElSelect } from 'element-plus'
 
 export default defineComponent({
   name: 'BcSelect',
   emits: ['update:modelValue', 'update:label', 'fetch'],
+  components: {
+    ElSelect,
+    ElOption,
+    ElOptionGroup,
+  },
   props: selectProps,
   setup(props, context) {
+    const groupChildren = computed(() => {
+      return props.groupProps?.children ?? 'children'
+    })
+    const groupValue = computed(() => {
+      return props.groupProps?.value ?? 'label'
+    })
     const {arrayName, label: optionLabel, value: optionValue} = useConfigInject<SelectProps>('select', props);
 
     const apiOptions = ref<SelectOptions>([]);
@@ -63,7 +77,7 @@ export default defineComponent({
       if (!props.group) {
         return false;
       }
-      return selectOptions.value.some(item => item.children)
+      return selectOptions.value.some(item => item[groupChildren.value])
     })
     const displayText = computed(() => {
       const value = Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue];
@@ -149,6 +163,8 @@ export default defineComponent({
 
     return {
       needGroup,
+      groupValue,
+      groupChildren,
       displayText,
       selectOptions,
       selectWidth,
