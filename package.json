@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@basic-components/components": "workspace:*",
+    "@element-plus/icons-vue": "^0.2.4",
     "@vitejs/plugin-vue": "^1.9.3",
     "@vitejs/plugin-vue-jsx": "^1.2.0",
     "core-js": "^3.6.5",
@@ -33,7 +34,6 @@
     "@babel/plugin-transform-typescript": "^7.15.4",
     "@babel/preset-env": "^7.15.4",
     "@babel/preset-typescript": "^7.15.0",
-    "@element-plus/icons": "^0.0.11",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-typescript": "^8.2.5",

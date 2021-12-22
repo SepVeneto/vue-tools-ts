@@ -23,7 +23,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { CopyDocument, Check } from '@element-plus/icons'
+import { CopyDocument, Check } from '@element-plus/icons-vue'
 const props = defineProps({
   rawSource: {
     type: String,

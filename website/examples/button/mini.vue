@@ -15,6 +15,6 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import { Edit } from '@element-plus/icons'
+import { Edit } from '@element-plus/icons-vue'
 console.log(Edit)
 </script>

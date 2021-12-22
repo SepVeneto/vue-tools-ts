@@ -12,14 +12,16 @@
       <el-upload
         style="text-align: center; margin-top: 20px"
         action=""
-        :ref="uploadRef"
+        ref="uploadRef"
         :show-file-list="false"
         with-credentials
         :httpRequest="uploadFile"
         accept=".xlsx,.xls"
         drag
       >
-        <i class="el-icon-upload"></i>
+        <el-icon class="el-icon--upload">
+          <plus />
+        </el-icon>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <!-- <div class="el-upload__tip" slot="tip">只能上传excel文件</div> -->
       </el-upload>
@@ -31,10 +33,14 @@
 import { UploadFile } from 'element-plus/lib/components/upload/src/upload.type';
 import { defineComponent, computed, ref } from 'vue';
 import { uploadProps } from './type';
+import { Plus } from '@element-plus/icons-vue'
 export default defineComponent({
   name: 'BcUpload',
   emits: ['update:modelValue', 'success', 'error'],
   props: uploadProps,
+  components: {
+    Plus,
+  },
   setup(props, context) {
     const uploading = ref(false);
     const uploadRef = ref();

@@ -31,6 +31,10 @@
       "name": "搜索框"
     },
     {
+      "link": "upload",
+      "name": "上传"
+    },
+    {
       "link": "config-provider",
       "name": "全局配置"
     }
