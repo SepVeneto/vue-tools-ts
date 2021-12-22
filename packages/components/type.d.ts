@@ -1,5 +1,5 @@
 export * from './table/src/type';
-export * from './search/search';
+export * from './search/type';
 export * from './button/src/type';
 export * from './input/src/type';
 export * from './clipboard/type';

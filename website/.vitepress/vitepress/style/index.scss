@@ -1,0 +1,80 @@
+@use 'custom.scss';
+
+div[class*='language-'] {
+  position: relative;
+  background-color: var(--el-background-color-base);
+  overflow-x: auto;
+
+  .dark & {
+    background-color: var(--bg-color-soft);
+  }
+}
+[class*='language-'] pre,
+[class*='language-'] code {
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+[class*='language-'] pre {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  overflow-x: auto;
+}
+
+[class*='language-'] code {
+  padding: 0;
+  line-height: var(--code-line-height);
+  font-size: var(--code-font-size);
+  color: var(--code-text-color);
+}
+div[class*='language-']:before {
+  position: absolute;
+  top: 0.6em;
+  right: 1em;
+  z-index: 2;
+  font-size: 0.8rem;
+  color: #888;
+}
+div[class~='language-vue']:before {
+  content: 'vue'
+}
+:root {
+  --font-family-mono: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas,
+    'Courier New', monospace;
+}
+code {
+  margin: 0;
+  border-radius: 3px;
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.85em;
+  color: var(--el-text-color-primary);
+  background-color: var(--code-bg-color);
+  background-color: var(--el-background-color-base);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  &:link, &:visited {
+    color: #333;
+  }
+}

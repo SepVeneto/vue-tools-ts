@@ -1,6 +1,14 @@
-import { defineComponent, getCurrentInstance, onMounted, ref, watch, PropType } from 'vue';
+import {
+  defineComponent,
+  getCurrentInstance,
+  onMounted,
+  ref,
+  watch,
+  PropType,
+  Fragment
+} from 'vue';
 import { TableColumnCtx } from 'element-plus/lib/components/table/src/table-column/defaults';
-import { getValue, setValue } from '../../_util/tools';
+import { extractObject, getValue, setValue } from '../../_util/tools';
 import cellEdit from './cellEdit';
 
 export type RowType = {
@@ -16,6 +24,7 @@ export default defineComponent({
     cellEdit,
   },
   props: {
+    rowKey: [String, Function],
     disableTravel: Boolean,
     bodyBorder: Boolean,
     wrapHeader: Boolean,
@@ -46,7 +55,11 @@ export default defineComponent({
       tableConfig.value = [...config] ;
     }, { immediate: true, deep: true });
 
-    function getRowKey(row: any, rowKey: string | ((row: any) => string), index: number) {
+    function getRowKey(row: any, rowKey?: string | Function, index?: number) {
+      if (!rowKey) {
+        console.warn('不推荐使用index作为key')
+        return index;
+      }
       if (typeof rowKey === 'function') {
         return rowKey(row);
       } else if (row[rowKey]) {
@@ -57,13 +70,13 @@ export default defineComponent({
       }
     }
 
-    onMounted(() => {
-      if (props.banSelectAll) {
-        const node = tableRef.value.$el.querySelector('.custom-header');
-        const checkbox = node.querySelector('.el-checkbox');
-        checkbox?.remove();
-      }
-    })
+    // onMounted(() => {
+    //   if (props.banSelectAll) {
+    //     const node = tableRef.value.$el.querySelector('.custom-header');
+    //     const checkbox = node.querySelector('.el-checkbox');
+    //     checkbox?.remove();
+    //   }
+    // })
     const renderRadio = (row: any, index: number, config: any) => (
       <el-radio
         model-value={radio.value}
@@ -74,7 +87,7 @@ export default defineComponent({
             context.emit('select', [row]);
           }
         }}
-        label={getRowKey(row, context.attrs.rowKey as any, index)}
+        label={getRowKey(row, props.rowKey, index)}
         disabled={config.selectable ? !config.selectable(row) : false}
       ><span></span></el-radio>
     )
@@ -88,15 +101,23 @@ export default defineComponent({
 
     const getColumnSlot = (data: RowType, config: any) => {
       if (config.children && config.children.length > 0) {
-        return tableColumns(config.children);
+        return config.children.map(config => tableColumn(config))
+        // return tableColumns(config.children);
       }
       const { row, column, $index } = data;
       if (config.type === 'expand') {
         return context.slots.expand;
       } else if (config.type === 'radio') {
+        // 不知道哪儿来的-1
+        if (!~$index) {
+          return;
+        }
         return renderRadio(row, $index, config);
       } else if (config.editable) {
         return renderCellEdit(row, column, config);
+      }
+      if (!column.property) {
+        return null;
       }
       const slot = context.slots[config.prop];
       return slot
@@ -104,27 +125,18 @@ export default defineComponent({
         : <span>{getValue(row, column.property, config, props.disableTravel)}</span>
     };
 
-    const tableColumns = (configList: Record<string, unknown>[]): JSX.Element => (
-      <>
-        {configList.map((config: any) => {
-          return (
-            <el-table-column
-              show-overflow-tooltip={props.showOverflowTooltip}
-              v-slots={{
-                default: (data: RowType) => getColumnSlot(data, config),
-                header: (({column, $index}: RowType) => {
-                  const header = context.slots[`${config.prop}-header`];
-                  return header ? header({column, $index}) : <span>{column.label}</span>
-                })
-              }}
-              label={config.label}
-              prop={config.prop}
-              width={config.width}
-              showOverflowTooltip={config.showOverflowTooltip}
-            ></el-table-column>
-          )
-        })}
-      </>
+    const tableColumn = (config: Record<string, unknown>): JSX.Element => (
+      <el-table-column
+        show-overflow-tooltip={props.showOverflowTooltip}
+        v-slots={{
+          default: (data: RowType) => getColumnSlot(data, config),
+          header: (({column, $index}: RowType) => {
+            const header = context.slots[`${config.prop}-header`];
+            return header ? header({column, $index}) : <span>{column.label}</span>
+          })
+        }}
+        {...extractObject(config, ['children'], 'exclude')}
+      />
     );
     return () => (
       <el-table
@@ -135,7 +147,10 @@ export default defineComponent({
         header-cell-class-name="custom-header"
         {...context.attrs}
       >
-        {tableColumns(tableConfig.value)}
+        {/* {tableConfig.value.map(config => (
+          <el-table-column {...config} />
+        ))} */}
+        {tableConfig.value.map(config => tableColumn(config))}
       </el-table>
     )
   }

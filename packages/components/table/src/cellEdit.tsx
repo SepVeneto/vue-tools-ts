@@ -27,7 +27,9 @@ export default defineComponent({
     }
     function save() {
       context.emit('save', cell.value);
-      inputRef.value.$el.blur();
+      // toggleEdit();
+      const el = inputRef.value.$el
+      el?.querySelector('input').blur();
     }
 
     const editInput = () => (

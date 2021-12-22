@@ -5,7 +5,7 @@
     @update:modelValue="emitValue"
     @change="emitLabel"
     :style="{ width: selectWidth }"
-    v-bind="{ clearable: true, ...$attrs}"
+    v-bind="{ clearable: true, valueKey: optionKey, ...$attrs}"
   >
     <template v-if="needGroup">
       <el-option-group
@@ -146,6 +146,11 @@ export default defineComponent({
     function emitLabel(val: unknown) {
       context.emit('update:label', getLabel(val))
     }
+
+    context.expose({
+      getOptions,
+      getLabel,
+    })
 
     return {
       needGroup,

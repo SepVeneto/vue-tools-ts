@@ -184,12 +184,14 @@ export default defineComponent({
             total={props.custom ? props.total: arrayTotal.value}
           />)
     }
+    context.expose({
+      getList,
+    })
     return () => (
       <section class="bc-table-wrap">
         <custom-table
           class="bc-table"
           ref={customTableRef}
-          v-loading={loading.value}
           config={tableConfig.value}
           data={props.simple ? simpleData.value : tableData.value}
           span-method={props.colspanOptions ? spanMethod : null}

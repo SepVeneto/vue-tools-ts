@@ -11,7 +11,7 @@ export const buttonProps = {
   /**
    * 自定义图标，只支持通过svg-sprite加载后的图标名称
    */
-  icon: String,
+  // icon: String,
   /**
    * 小按钮，只显示图标，一般配置tooltip来提示操作文本
    */

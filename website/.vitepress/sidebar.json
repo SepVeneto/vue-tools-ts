@@ -1,0 +1,42 @@
+{
+  "guide": [
+    {
+      "link": "install",
+      "name": "安装"
+    },
+    {
+      "link": "quick-start",
+      "name": "快速开始"
+    }
+  ],
+  "components": [
+    {
+      "link": "table",
+      "name": "表格"
+    },
+    {
+      "link": "select",
+      "name": "选择器"
+    },
+    {
+      "link": "input",
+      "name": "输入框"
+    },
+    {
+      "link": "button",
+      "name": "按键"
+    },
+    {
+      "link": "search",
+      "name": "搜索框"
+    },
+    {
+      "link": "upload",
+      "name": "上传"
+    },
+    {
+      "link": "config-provider",
+      "name": "全局配置"
+    }
+  ]
+}

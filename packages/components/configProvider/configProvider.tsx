@@ -23,11 +23,11 @@ export type ConfigProviderProps = Partial<ExtractPropTypes<typeof configProvider
 export default defineComponent({
   name: 'BcConfigProvider',
   props: configProviderProps,
-  setup(props, { slots }) {
+  setup(props, { slots, attrs }) {
     const configProvider = reactive({
       ...props,
     })
-    provide('configProvider', configProvider);
+    provide('configProvider', { ...configProvider, ...attrs });
     return () => slots.default?.()
   },
 })

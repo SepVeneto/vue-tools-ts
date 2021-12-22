@@ -12,16 +12,18 @@ import babel from '@rollup/plugin-babel'
 import chalk from 'chalk'
 import typescript from '@rollup/plugin-typescript'
 import scss from 'rollup-plugin-scss'
+import { execSync } from 'child_process'
 
 const EP_PREFIX = 'element-plus'
 const VUE_REGEX = 'vue'
 const VUE_MONO = '@vue'
 const indexRoot = path.resolve(__dirname, '..', 'packages', 'basic-components')
 const compRoot = path.resolve(__dirname, '../', './packages', './components');
-const outputDir = path.resolve(__dirname, '../', './dist', './basic-components');
+const outputDir = path.resolve(__dirname, '../', './dist');
+const themeDir = path.resolve(__dirname, '..', 'packages', 'theme-chalk', 'dist');
 const plugins = [
   scss({
-    output: 'bundle.css'
+    // output: 'bundle.css'
   }),
   // babel({ babelHelpers: 'bundled', extensions: ['.tsx'] }),
   // vue({
@@ -208,7 +210,12 @@ async function buildIndexEntry() {
 async function copyFiles() {
   await fs.promises.cp(path.resolve(indexRoot, 'index.d.ts'), path.resolve(outputDir, 'lib', 'index.d.ts'));
   await fs.promises.cp(path.resolve(indexRoot, 'index.d.ts'), path.resolve(outputDir, 'es', 'index.d.ts'));
-  await fs.promises.cp(path.resolve(indexRoot, 'package.json'), path.resolve(outputDir, 'package.json'));
+  const packageJson = JSON.parse(fs.readFileSync(path.resolve(indexRoot, 'package.json'), 'utf-8'));
+  packageJson.main = 'lib/index.js'
+  packageJson.module = 'es/index.js'
+  packageJson.types = 'lib/index.d.ts'
+  await fs.promises.writeFile(path.resolve(outputDir, 'package.json'), JSON.stringify(packageJson, null, 2))
+  // await fs.promises.cp(path.resolve(indexRoot, 'package.json'), path.resolve(outputDir, 'package.json'));
 }
 
 // function pathsRewriter(id: string) {
@@ -227,6 +234,12 @@ async function copyFiles() {
 
   console.log('copy type/package')
   await copyFiles()
+
+  console.log('copy style')
+  await copyStyle()
+
+  console.log('pack')
+  execSync('cd ./dist && npm pack --pack-destination ../')
 })().then(() => {
   green('success')
   process.exit(0)
@@ -245,3 +258,9 @@ function logAndShutdown(e) {
   process.exit(1)
 }
 
+async function copyStyle() {
+  await fs.promises.cp(path.resolve(indexRoot, 'index.d.ts'), path.resolve(outputDir, 'lib', 'index.d.ts'));
+  const styleDir = path.join(outputDir, 'theme-chalk');
+  fs.mkdirSync(styleDir, { recursive: true })
+  await fs.promises.cp(path.join(themeDir, 'index.css'), path.join(outputDir, 'theme-chalk', 'index.css'))
+}
