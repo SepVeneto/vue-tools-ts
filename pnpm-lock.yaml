@@ -43,6 +43,7 @@ importers:
       mini-css-extract-plugin: ^0.11.2
       prettier: ^2.4.1
       progress-bar-webpack-plugin: ^2.1.0
+      rimraf: ^3.0.2
       rollup: ^2.56.3
       rollup-plugin-css-only: ^3.1.0
       rollup-plugin-esbuild: ^4.5.0
@@ -110,6 +111,7 @@ importers:
       mini-css-extract-plugin: 0.11.3_webpack@5.65.0
       prettier: 2.5.1
       progress-bar-webpack-plugin: 2.1.0_webpack@5.65.0
+      rimraf: 3.0.2
       rollup: 2.60.2
       rollup-plugin-css-only: 3.1.0_rollup@2.60.2
       rollup-plugin-esbuild: 4.7.2_esbuild@0.12.29+rollup@2.60.2
@@ -5225,7 +5227,7 @@ packages:
     dev: true
 
   /glob/7.2.0:
-    resolution: {integrity: sha1-0VU1r3cy4C6Uj0xBYovZECk/YCM=, tarball: glob/download/glob-7.2.0.tgz}
+    resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==, tarball: glob/download/glob-7.2.0.tgz}
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
