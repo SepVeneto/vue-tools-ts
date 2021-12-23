@@ -20,6 +20,7 @@ const alias: Alias[] = []
 // }
 
 export default defineConfig({
+  base: '/vue-tools-ts/',
   server: {
     host: true,
     // fs: {
