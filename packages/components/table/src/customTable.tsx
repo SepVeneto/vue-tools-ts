@@ -125,8 +125,11 @@ export default defineComponent({
         : <span>{getValue(row, column.property, config, props.disableTravel)}</span>
     };
 
-    const tableColumn = (config: Record<string, unknown>): JSX.Element => (
-      <el-table-column
+    const tableColumn = (config: Record<string, unknown>): JSX.Element => {
+      if (config.type === 'selection') {
+        return (<el-table-column {...config} />)
+      }
+      return (<el-table-column
         show-overflow-tooltip={props.showOverflowTooltip}
         v-slots={{
           default: (data: RowType) => getColumnSlot(data, config),
@@ -136,8 +139,8 @@ export default defineComponent({
           })
         }}
         {...extractObject(config, ['children'], 'exclude')}
-      />
-    );
+      />)
+    };
     return () => (
       <el-table
         class={['custom-table', { 'cutom-icon': props.customIcon }, { 'current-hover': props.hiddenCurrent }]}
@@ -145,6 +148,8 @@ export default defineComponent({
         border
         data={props.data}
         header-cell-class-name="custom-header"
+        row-key={props.rowKey}
+        onSelect={(...args) => context.emit.apply(this, ['select', ...args])}
         {...context.attrs}
       >
         {/* {tableConfig.value.map(config => (
