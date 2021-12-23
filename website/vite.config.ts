@@ -20,14 +20,13 @@ const alias: Alias[] = []
 // }
 
 export default defineConfig({
-  base: '/vue-tools-ts/',
   server: {
     host: true,
-    // fs: {
-    //   strict: true,
-    //   // 需要访问根目录node_modules中element-plus的字体文件
-    //   allow: [path.resolve(__dirname, '..')],
-    // },
+    fs: {
+      strict: true,
+      // 需要访问根目录node_modules中element-plus的字体文件
+      allow: [path.resolve(__dirname, '..')],
+    },
   },
   plugins: [
     vueJsx()
