@@ -86,7 +86,7 @@ export default defineComponent({
           ))}
           <el-form-item>
             {props.layout.map(item => layout[item]())}
-            {context.slots.default}
+            {context.slots.default?.()}
           </el-form-item>
         </el-form>
         {props.upload && <bc-upload

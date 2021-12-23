@@ -22,6 +22,7 @@ const alias: Alias[] = []
 export default defineConfig({
   server: {
     host: true,
+    port: 3333,
     fs: {
       strict: true,
       // 需要访问根目录node_modules中element-plus的字体文件

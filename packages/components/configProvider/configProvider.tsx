@@ -1,12 +1,13 @@
 import { reactive } from 'vue';
 import { ExtractPropTypes, PropType, provide } from 'vue';
 import { defineComponent } from 'vue';
-interface TableProps {
+export interface TableProps {
   arrayName?: string,
   pageName?: string,
   pageSizeName?: string,
+  totalName?: string,
 }
-interface SelectProps {
+export interface SelectProps {
   label?: string,
   value?: string,
   arrayName?: string,
@@ -18,6 +19,9 @@ export const configProviderProps = {
   select: {
     type: Object as PropType<SelectProps>
   },
+  response: {
+    type: Object as PropType<{ code?: string, msg?: string, data?: string }>,
+  }
 }
 export type ConfigProviderProps = Partial<ExtractPropTypes<typeof configProviderProps>>;
 export default defineComponent({

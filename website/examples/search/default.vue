@@ -3,7 +3,9 @@
     v-model="params"
     :config="searchConfig"
     :search="handleSearch"
-  />
+  >
+    <bc-button>测试</bc-button>
+  </bc-search>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
