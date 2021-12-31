@@ -4,32 +4,29 @@
     :name="name"
     v-bind="$attrs"
     :style="{
-      transitionDelay: delay
+      transitionDelay: delay,
     }"
   >
-    <slot v-if="show" />
+    <slot ref="slotRef" v-if="show" />
   </transition>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { motionProps } from './type';
 
 export default defineComponent({
   name: 'BcMotion',
   props: motionProps,
   setup(props) {
-    const show = ref(false);
     const name = computed(() => {
-      return `bc-motion-${props.type}-${props.direction}`
-    })
-    onMounted(() => {
-      show.value = true;
+      const classes = [props.type, props.direction].filter(item => !!item).join('-')
+      return `bc-motion-${classes}`
     })
     return {
       name,
 
-      show,
+      // show,
     }
   },
 })

@@ -10,7 +10,8 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: 'BcTablePagination',
   props: {
     pageSizes: Array,
@@ -23,5 +24,5 @@ export default {
       default: true,
     }
   },
-}
+})
 </script>

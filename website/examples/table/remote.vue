@@ -7,6 +7,8 @@
     :config="tableConfig"
     :api="getList"
     row-key="name"
+    pagination
+    :page-sizes="[100]"
   >
   </bc-table>
 </template>

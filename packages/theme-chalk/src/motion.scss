@@ -1,31 +1,38 @@
 @use 'mixins/mixins.scss' as *;
 
 @include b(motion) {
-  @include e(fade-left-enter-from) {
+  @include e((fade-left-enter-from,fade-left-leave-to)) {
     transform: translateX(-10px);
     opacity: 0;
   }
-  @include e(fade-right-enter-from) {
+  @include e((fade-right-enter-from,fade-right-leave-to)) {
     transform: translateX(10px);
     opacity: 0;
   }
-  @include e(fade-up-enter-from) {
+  @include e((fade-up-enter-from,fade-up-leave-to)) {
     transform: translateY(-10px);
     opacity: 0;
   }
-  @include e(fade-down-enter-from) {
+  @include e((fade-down-enter-from,fade-down-leave-to)) {
     transform: translateY(10px);
     opacity: 0;
   }
-  @include e((fade-left-enter-active,fade-right-enter-active,fade-up-enter-active,fade-down-enter-active)) {
-    transition: all .3s ease;
+  @include e((scale-enter-from,scale-leave-to)) {
+    transform: scale(0);
+    opacity: 0;
+  }
+  @include e((
+    fade-left-enter-active,
+    fade-right-enter-active,
+    fade-up-enter-active,
+    fade-down-enter-active,
+    fade-left-leave-active,
+    fade-right-leave-active,
+    fade-up-leave-active,
+    fade-down-leave-active,
+    scale-leave-active,
+    scale-enter-active,
+  )) {
+    transition: all 0.3s ease;
   }
 }
-// @include b(motion-config) {
-//   &.bc-motion-fade-left-enter-active,
-//   &.bc-motion-fade-right-enter-active,
-//   &.bc-motion-fade-up-enter-active,
-//   &.bc-motion-fade-down-enter-active {
-//     transition: all .3s ease;
-//   }
-// }

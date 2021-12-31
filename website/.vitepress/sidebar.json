@@ -37,6 +37,14 @@
     {
       "link": "config-provider",
       "name": "全局配置"
+    },
+    {
+      "link": "motion",
+      "name": "过渡"
+    },
+    {
+      "link": "status",
+      "name": "状态"
     }
   ]
 }

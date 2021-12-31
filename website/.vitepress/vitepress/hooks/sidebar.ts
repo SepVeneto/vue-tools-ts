@@ -9,10 +9,11 @@ export const useSidebar = () => {
   const route = useRoute();
   const { site } = useData()
   const menus: Record<string, IConfig[]> = site.value.themeConfig.sidebar;
+  const baseUrl = site.value.base ?? '/';
   const sidebar = Object.entries(menus).map(([path, menu]) => {
     return menu.map(item => ({
       ...item,
-      link: `/${path}/${item.link}`
+      link: `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}${path}/${item.link}`
     }))
   })
   return {

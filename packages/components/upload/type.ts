@@ -12,6 +12,10 @@ export const uploadProps = {
    * 调用文件的上传接口
    */
   uploadApi: Function as PropType<(form: FormData) => Promise<ApiResponseType>>,
+  drag: {
+    type: Boolean,
+    default: true,
+  }
 }
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;

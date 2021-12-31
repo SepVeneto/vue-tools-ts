@@ -1,3 +1,4 @@
+import { TableProps } from 'packages/components/configProvider/configProvider';
 import { computed, defineComponent, reactive, ref, watch } from 'vue'
 import useConfigInject from '../../_util/hooks/useConfigInject';
 import customTable from './customTable';
@@ -13,18 +14,20 @@ export default defineComponent({
   },
   props: tableProps,
   setup(props, context) {
-    const { arrayName, pageSizeName, pageName } = useConfigInject('bcTable', props);
+    const { arrayName, pageSizeName, pageName, response, table } = useConfigInject('bcTable', props);
 
     const arrayData = ref([]);
     const arrayTotal = ref(0)
     const simpleTable = reactive({ page: 1, rows: 5 });
     const loading = ref(false);
-    const configProviderTable = ref<Record<string, unknown>>({});
-    const tableDataName = ref(arrayName || '');
+    // const tableDataName = ref(arrayName || '');
     const tableConfig = ref<Record<string, unknown>[]>([{}]);
 
     const customTableRef = ref();
 
+    const configProviderTable = computed(() => table.value);
+    const responseWrap = computed(() => response.value?.data ?? 'data')
+    const tableDataName = computed(() => (props.arrayName || arrayName.value) ?? '')
     const tableData = computed<Record<string, unknown>[]>(() => {
       if (props.data && props.data.length > 0) {
         return [...props.data || []];
@@ -100,11 +103,13 @@ export default defineComponent({
       if (!props.custom && props.load) {
         loading.value = true;
       }
+      const wrap = responseWrap.value;
+      const array = tableDataName.value;
       /* global ApiResponseType */
       return props.api?.().then((data: ApiResponseType) => {
-        arrayData.value = (tableDataName.value ? data.data[tableDataName.value] : data.data) || [];
+        arrayData.value = (array ? data[wrap][array] : data[wrap]) || [];
         loading.value = false;
-        arrayTotal.value = data.data.total || 0;
+        arrayTotal.value = data[wrap][table.value?.totalName ?? 'total'] || 0;
         return Promise.resolve(arrayData.value);
       }).catch(() => {
         loading.value = false;
@@ -113,8 +118,8 @@ export default defineComponent({
       })
     }
     function updateParams(params: Record<string, unknown>) {
-      const pageName = configProviderTable.value.pageName as string;
-      const pageSizeName = configProviderTable.value.pageSizeName as string;
+      const pageName = configProviderTable.value?.pageName ?? 'page';
+      const pageSizeName = configProviderTable.value?.pageSizeName ?? 'rows';
       const { page, rows, ...args } = params;
       context.emit('update:params', { ...args, [pageName]: page, [pageSizeName]: rows});
     }
@@ -181,11 +186,13 @@ export default defineComponent({
               'onUpdate:currentPage': handlePageChange,
               'onUpdate:pageSize': handleRowsChange,
             }}
+            {...context.attrs}
             total={props.custom ? props.total: arrayTotal.value}
           />)
     }
     context.expose({
       getList,
+      clearSelection: () => customTableRef.value.clearSelection()
     })
     return () => (
       <section class="bc-table-wrap">
