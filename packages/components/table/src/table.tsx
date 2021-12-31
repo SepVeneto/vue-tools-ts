@@ -186,11 +186,13 @@ export default defineComponent({
               'onUpdate:currentPage': handlePageChange,
               'onUpdate:pageSize': handleRowsChange,
             }}
+            {...context.attrs}
             total={props.custom ? props.total: arrayTotal.value}
           />)
     }
     context.expose({
       getList,
+      clearSelection: () => customTableRef.value.clearSelection()
     })
     return () => (
       <section class="bc-table-wrap">

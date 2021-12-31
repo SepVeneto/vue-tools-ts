@@ -55,6 +55,9 @@ export default defineComponent({
       tableConfig.value = [...config] ;
     }, { immediate: true, deep: true });
 
+    function clearSelection() {
+      tableRef.value.clearSelection()
+    }
     function getRowKey(row: any, rowKey?: string | Function, index?: number) {
       if (!rowKey) {
         console.warn('不推荐使用index作为key')
@@ -141,6 +144,9 @@ export default defineComponent({
         {...extractObject(config, ['children'], 'exclude')}
       />)
     };
+    context.expose({
+      clearSelection,
+    })
     return () => (
       <el-table
         class={['custom-table', { 'cutom-icon': props.customIcon }, { 'current-hover': props.hiddenCurrent }]}

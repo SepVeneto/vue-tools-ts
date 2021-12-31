@@ -10,6 +10,7 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "build": "rimraf dist && esno ./build/build.ts",
+    "build:style": "cd packages/theme-chalk && rimraf dist && npm run build",
     "website-dev": "webpack serve --config ./website/webpack.config.js",
     "website-build": "webpack build --config ./website/webpack.config.js",
     "docs:dev": "pnpm run -C website dev",

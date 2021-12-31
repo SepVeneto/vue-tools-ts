@@ -15,11 +15,12 @@
       '.' +
       $B +
       $element-separator +
-      $unit;
-    @at-root {
-      #{$currentSelector} {
-        @content;
-      }
+      $unit +
+      ',';
+  }
+  @at-root {
+    #{$currentSelector} {
+      @content;
     }
   }
 }

@@ -14,7 +14,7 @@ export default defineComponent({
 import { ref } from 'vue'
 const visible = ref(false)
 function upload(form: FormData) {
-  console.log(form.get('file'))
-  return Promise.resolve()
+  console.log((form.get('file') as any).name)
+  return Promise.reject('error')
 }
 </script>

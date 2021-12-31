@@ -10,7 +10,9 @@ import { BcMotion } from '@basic-components/components/motion';
 import { BcMotionGroup } from '@basic-components/components/motionGroup';
 import SvgIcon from '@basic-components/components/svgIcon';
 import { BcConfigProvider } from '@basic-components/components/configProvider';
+import { BcStatus } from '@basic-components/components/status'
 export default [
+  BcStatus,
   BcButton,
   BcInput,
   BcTable,

@@ -1,0 +1,51 @@
+@use 'mixins/mixins.scss' as *;
+
+@include b(status) {
+  &--icon {
+    margin-right: 10px;
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    &::after {
+      content: '';
+      display: block;
+      border-radius: 50%;
+      width: 8px;
+      height: 8px;
+    }
+  }
+  &--danger {
+    background-color: var(--el-color-danger-light);
+    &::after {
+      background-color: var(--el-color-error);
+    }
+  }
+  &--primary {
+    background-color: var(--el-color-primary-light-6);
+    &::after {
+      background-color: var(--el-color-primary);
+    }
+  }
+  &--info {
+    background-color: var(--el-color-info-light);
+    &::after {
+      background-color: var(--el-color-info);
+    }
+  }
+  &--warning {
+    background-color: var(--el-color-warning-light);
+    &::after {
+      background-color: var(--el-color-warning);
+    }
+  }
+  &--success {
+    background-color: var(--el-color-success-light);
+    &::after {
+      background-color: var(--el-color-success);
+    }
+  }
+}

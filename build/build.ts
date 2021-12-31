@@ -236,6 +236,7 @@ async function copyFiles() {
   await copyFiles()
 
   console.log('copy style')
+  execSync('npm run build:style')
   await copyStyle()
 
   console.log('pack')

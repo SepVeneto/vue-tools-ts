@@ -52,8 +52,10 @@ export default defineComponent({
   emits: ['update:modelValue', 'update:label', 'fetch'],
   props: selectProps,
   setup(props, context) {
-    const {arrayName, label: optionLabel, value: optionValue} = useConfigInject<SelectProps>('select', props);
+    const {arrayName, label: optionLabel, value: optionValue, response} = useConfigInject<SelectProps>('select', props);
 
+    const optionsName = computed(() => (props.arrayName || arrayName.value) ?? '')
+    const responseWrap = computed(() => response.value?.data ?? 'data')
     const apiOptions = ref<SelectOptions>([]);
 
     const selectOptions = computed<SelectOptions>(() => {
@@ -96,8 +98,8 @@ export default defineComponent({
     function getList() {
       if (typeof props.api === 'function') {
         props.api().then((data) => {
-          if (data.data) {
-            apiOptions.value = data.data[arrayName.value] || data.data;
+          if (data[responseWrap.value]) {
+            apiOptions.value = data[responseWrap.value][optionsName.value] || data[responseWrap.value];
           }
           context.emit('fetch', apiOptions.value);
         });

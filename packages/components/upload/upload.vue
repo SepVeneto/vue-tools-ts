@@ -17,12 +17,16 @@
         with-credentials
         :httpRequest="uploadFile"
         accept=".xlsx,.xls"
-        drag
+        :drag="drag"
       >
-        <el-icon class="el-icon--upload">
-          <plus />
-        </el-icon>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <template v-if="drag">
+          <el-icon class="el-icon--upload"><plus /></el-icon>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        </template>
+        <div class="el-upload-dragger" v-else>
+          <el-icon class="el-icon--upload"><plus /></el-icon>
+          <div class="el-upload__text"><em>点击上传</em></div>
+        </div>
         <!-- <div class="el-upload__tip" slot="tip">只能上传excel文件</div> -->
       </el-upload>
     </section>
@@ -64,13 +68,14 @@ export default defineComponent({
       })
       props.uploadApi?.(form).then(() => {
         uploading.value = false;
-        upload.clearFiles();
         context.emit('success');
         context.emit('update:modelValue', false);
       }).catch(() => {
         uploading.value = false;
-        upload.clearFiles();
         context.emit('error');
+      }).finally(() => {
+        upload.clearFiles();
+        upload.uploadFiles = [];
       })
     }
     function handleDownloadTemplate() {

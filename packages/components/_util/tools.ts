@@ -34,9 +34,19 @@ export function getValue(row: AnyType, column: string, config: CellConfigType = 
   }
   if (res !== '' && res != null) {
     res = res as string + (config.unit || '');
-    return config.filter ? config.filter(res) : res;
+    return filterValue(res, config.filter);
   }
-  return config.filter ? config.filter(emptyText) : emptyText;
+  return filterValue(emptyText, config.filter);
+}
+function filterValue(val: any, filter: Record<string, any> | ((val: any) => any) | undefined) {
+  if (!filter) {
+    return val;
+  }
+  if (typeof filter === 'function') {
+    return filter(val)
+  } else {
+    return filter[val]
+  }
 }
 
 export function setValue(row: AnyType, property: string, value: unknown): void {
