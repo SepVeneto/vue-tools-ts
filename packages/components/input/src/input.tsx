@@ -3,7 +3,7 @@ import { inputProps } from './type';
 import { DocumentCopy } from '@element-plus/icons-vue'
 import { ElInput, ElMessage } from 'element-plus'
 // import '../style.css'
-import { copyText } from 'packages/components/_util/tools';
+import { copyText } from '@basic-components/components/_util';
 
 export default defineComponent({
   name: 'BcInput',
