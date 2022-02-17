@@ -1,5 +1,10 @@
-import { PropType, ExtractPropTypes } from 'vue';
+import { PropType, ExtractPropTypes, DefineComponent } from 'vue';
 type IInputBorder = PropType<'none' | 'bottom' | 'all'>;
+type ICopyOptions = {
+  size?: number,
+  color?: string,
+  icon?: string,
+}
 
 export const inputProps = {
   /**
@@ -15,7 +20,7 @@ export const inputProps = {
    */
   border: {
     type: String as IInputBorder,
-    validator: (val: string) => {
+    validator: (val: string): boolean => {
       return ['none', 'bottom', 'all'].includes(val);
     },
     default: 'all',
@@ -27,6 +32,13 @@ export const inputProps = {
     type: [String, Number],
     default: '100%',
   },
+  /**
+   * 显示复制按钮，支持自定义图标
+   */
+  copy: {
+    type: [Boolean, Object] as PropType<boolean | ICopyOptions | DefineComponent>,
+    default: false,
+  }
 }
 
 export type InputProps = Partial<ExtractPropTypes<typeof inputProps>>;

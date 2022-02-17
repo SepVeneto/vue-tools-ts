@@ -22,7 +22,7 @@ export const buttonProps = {
   type: {
     type: String,
     default: null,
-  }
+  },
 }
 
 export type ButtonProps = Partial<ExtractPropTypes<typeof buttonProps>>;

@@ -1,6 +1,9 @@
 @use 'mixins/mixins.scss' as *;
 
 @include b(input) {
+  .el-icon {
+    height: 100%;
+  }
   &.no-border {
     > .el-input__inner {
       background-color: transparent;

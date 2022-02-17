@@ -31,10 +31,13 @@ export default defineConfig({
   },
   plugins: [
     vueJsx()
-  ]
-  // resolve: {
-  //   alias,
-  // },
+  ],
+  resolve: {
+    alias: {
+      packages: path.resolve(__dirname, '../packages')
+    }
+    // alias,
+  },
   // plugins: [Inspect()],
   // optimizeDeps: {
   //   include: ['@vueuse/core', 'dayjs'],

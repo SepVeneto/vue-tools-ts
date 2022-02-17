@@ -20,11 +20,11 @@
   },
   "dependencies": {
     "@basic-components/components": "workspace:*",
-    "@element-plus/icons-vue": "^0.2.4",
+    "@element-plus/icons-vue": "^0.2.7",
     "@vitejs/plugin-vue": "^1.9.3",
     "@vitejs/plugin-vue-jsx": "^1.2.0",
     "core-js": "^3.6.5",
-    "element-plus": "^1.2.0-beta.2",
+    "element-plus": "^2.0.2",
     "vite": "^2.6.7",
     "vue": "^3.2.0",
     "vue-router": "^4.0.0-0",

@@ -64,7 +64,7 @@ export function setValue(row: AnyType, property: string, value: unknown): void {
   }
 }
 
-export function copyText(text: string) {
+export function copyText(text: string): Promise<boolean> {
   return new Promise((resolve, reject) => {
     try {
       navigator.clipboard.writeText(text).then(() => {
