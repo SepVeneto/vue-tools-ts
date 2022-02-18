@@ -1,5 +1,5 @@
 import { computed, defineComponent } from "vue";
-import { ElMessageBox } from 'element-plus';
+import { ElMessageBox, ElButton, ElTooltip } from 'element-plus';
 import { buttonProps } from './type';
 
 const SPECIAL = Object.freeze<string>([])
@@ -8,6 +8,10 @@ export default defineComponent({
   name: 'BcButton',
   emits: ['click'],
   props: buttonProps,
+  components: {
+    ElButton,
+    ElTooltip
+  },
   setup(props, context) {
     const isSpecialButton = computed(() => {
       return SPECIAL.includes(props.type)

@@ -9,3 +9,5 @@ const _Table = Table as unknown as Plugin;
 
 export default _Table;
 export const BcTable = _Table;
+
+export * from './src/type'

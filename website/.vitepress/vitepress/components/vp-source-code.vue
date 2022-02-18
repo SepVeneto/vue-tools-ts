@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { copyText } from '../../../../packages/components/_util/tools'
+import { copyText } from '@basic-components/utils'
 export default defineComponent({
   name: 'VPSourceCode',
 })

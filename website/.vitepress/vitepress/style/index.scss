@@ -2,7 +2,7 @@
 
 div[class*='language-'] {
   position: relative;
-  background-color: var(--el-bg-color-base);
+  background-color: var(--code-bg-color);
   overflow-x: auto;
 
   .dark & {
@@ -54,6 +54,7 @@ div[class~='language-vue']:before {
 :root {
   --font-family-mono: 'JetBrains Mono', source-code-pro, Menlo, Monaco, Consolas,
     'Courier New', monospace;
+  --code-bg-color: var(--el-bg-color);
 }
 code {
   margin: 0;
@@ -63,7 +64,6 @@ code {
   font-size: 0.85em;
   color: var(--el-text-color-primary);
   background-color: var(--code-bg-color);
-  background-color: var(--el-bg-color-base);
 }
 
 ul {

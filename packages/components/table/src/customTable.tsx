@@ -8,8 +8,9 @@ import {
   Fragment
 } from 'vue';
 import { TableColumnCtx } from 'element-plus/lib/components/table/src/table-column/defaults';
-import { extractObject, getValue, setValue } from '../../_util/tools';
+import { extractObject, getValue, setValue } from '@basic-components/utils';
 import cellEdit from './cellEdit';
+import { ElTable, ElTableColumn, ElRadio } from 'element-plus';
 
 export type RowType = {
   row: any,
@@ -22,6 +23,9 @@ export default defineComponent({
   emits: ['save', 'radio', 'select'],
   components: {
     cellEdit,
+    ElTable,
+    ElTableColumn,
+    ElRadio,
   },
   props: {
     rowKey: [String, Function],

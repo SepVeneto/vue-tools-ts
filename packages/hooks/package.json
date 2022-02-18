@@ -1,0 +1,6 @@
+{
+  "name": "@basic-components/hooks",
+  "main": "index.ts",
+  "module": "index.ts",
+  "unpkg": "index.js"
+}

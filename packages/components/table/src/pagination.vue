@@ -10,11 +10,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { ElPagination } from 'element-plus'
 export default defineComponent({
   name: 'BcTablePagination',
   props: {
-    pageSizes: Array,
+    pageSizes: Array as PropType<number[]>,
     layout: {
       type: String,
       default: 'total, prev, pager, next, sizes, jumper'
@@ -23,6 +24,9 @@ export default defineComponent({
       type: Boolean,
       default: true,
     }
+  },
+  components: {
+    ElPagination,
   },
 })
 </script>

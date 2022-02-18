@@ -9,3 +9,5 @@ const _Input = Input as unknown as Plugin;
 
 export default _Input;
 export const BcInput = _Input;
+
+export * from './src/type'

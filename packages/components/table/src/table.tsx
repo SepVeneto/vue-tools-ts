@@ -1,6 +1,5 @@
-import { TableProps } from 'packages/components/configProvider/configProvider';
 import { computed, defineComponent, reactive, ref, watch } from 'vue'
-import useConfigInject from '../../_util/hooks/useConfigInject';
+import { useConfigInject } from '@basic-components/hooks';
 import customTable from './customTable';
 import customPagination from './pagination.vue';
 import { CellType } from './type';
@@ -75,7 +74,6 @@ export default defineComponent({
         return { page, rows, ...params };
       },
       set(obj: Record<string, unknown>) {
-        console.log(obj)
         updateParams(obj)
       }
     });

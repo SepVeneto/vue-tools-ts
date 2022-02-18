@@ -3,13 +3,14 @@ import { inputProps } from './type';
 import { DocumentCopy } from '@element-plus/icons-vue'
 import { ElInput, ElMessage } from 'element-plus'
 // import '../style.css'
-import { copyText } from '@basic-components/components/_util';
+import { copyText } from '@basic-components/utils';
 
 export default defineComponent({
   name: 'BcInput',
   props: inputProps,
   components: {
-    DocumentCopy
+    DocumentCopy,
+    ElInput
   },
   setup(props, context) {
     const inputRef = ref<typeof ElInput>();
@@ -30,9 +31,16 @@ export default defineComponent({
     const suffix = () => (
       <>
         {props.copy &&
-          <el-icon size={copyOptions.size ?? 20} color={copyOptions.color} onClick={handleCopy}>
-            {context.slots.icon?.() ?? <document-copy />}
-          </el-icon>
+          <el-tooltip content="复制">
+            <el-icon
+              style="cursor: pointer"
+              size={copyOptions.size ?? 20}
+              color={copyOptions.color}
+              onClick={handleCopy}
+            >
+              {context.slots.icon?.() ?? <document-copy />}
+            </el-icon>
+          </el-tooltip>
         }
         {context.slots.suffix?.()}
       </>

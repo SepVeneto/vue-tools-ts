@@ -1,4 +1,5 @@
 import {defineComponent } from 'vue'
+import { ElTable, ElTableColumn } from 'element-plus'
 export default defineComponent({
   name: 'SimpleTable',
   props: {
@@ -7,6 +8,10 @@ export default defineComponent({
       type: Object,
       required: true,
     }
+  },
+  components: {
+    ElTable,
+    ElTableColumn,
   },
   setup(props, context) {
     return () => (

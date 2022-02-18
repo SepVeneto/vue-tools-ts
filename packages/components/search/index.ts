@@ -1,4 +1,4 @@
-import Search from './search';
+import Search from './src/search';
 import { App, Plugin } from 'vue';
 Search.install = (app: App) => {
   app.component(Search.name, Search);
@@ -7,3 +7,5 @@ Search.install = (app: App) => {
 const _BcSearch = Search as unknown as Plugin;
 export default _BcSearch;
 export const BcSearch = _BcSearch;
+
+export * from './src/type'

@@ -1,27 +1,16 @@
-import {
-  ButtonProps,
-  SearchProps,
-  TableProps,
-  ClipboardProps,
-  DialogProps,
-  InputProps,
-  SelectProps,
-  MotionProps,
-  MotionGroupProps,
-  UploadProps,
-} from '@basic-components/components/type'
-
 declare module 'vue' {
   export interface GlobalComponents {
     BcButton: typeof import('basic-components')['BcButton'],
-    BcSearch: SearchProps,
-    BcTable: TableProps,
-    BcClipboard: ClipboardProps,
-    BcDialog: DialogProps,
-    BcInput: InputProps,
-    BcSelect: SelectProps,
-    BcMotion: MotionProps,
-    BcMotionGroup: MotionGroupProps,
-    BcUplaod: UploadProps,
+    BcSearch: typeof import('basic-components')['BcSearch'],
+    BcTable: typeof import('basic-components')['BcTable'],
+    BcClipboard: typeof import('basic-components')['BcClipboard'],
+    BcDialog: typeof import('basic-components')['BcDialog'],
+    BcInput: typeof import('basic-components')['BcInput'],
+    BcSelect: typeof import('basic-components')['BcSelect'],
+    BcMotion: typeof import('basic-components')['BcMotion'],
+    BcMotionGroup: typeof import('basic-components')['BcMotionGroup'],
+    BcUplaod: typeof import('basic-components')['BcUpload'],
   }
 }
+
+export {}
