@@ -21,7 +21,7 @@ export default defineComponent({
       startPlaceholder: '开始时间',
       endPlaceholder: '结束时间',
       rangeSeparator: '至',
-      defaultTime: props.dayEnd && type.value === 'datetimerange' ? timeRange : []
+      defaultTime: props.dayEnd && type.value === 'datetimerange' ? timeRange : null
     }
     return {
       realWidth,
@@ -32,11 +32,14 @@ export default defineComponent({
     }
   },
   render() {
+    console.log(this.$attrs)
     return (<el-date-picker
       value-format={this.datePicker?.valueFormat}
-      {...(this.type?.includes('range') ? this.rangeDefaultConfig: {})}
-      {...this.$attrs}
       style={{ width: this.realWidth }}
+      {...{
+        ...(this.type?.includes('range') ? this.rangeDefaultConfig: {}),
+        ...this.$attrs,
+      }}
     />)
   }
 })

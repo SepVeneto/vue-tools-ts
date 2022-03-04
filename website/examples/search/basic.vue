@@ -19,6 +19,7 @@ export default defineComponent({
 import { ref } from 'vue'
 const searchConfig = ref([
   { catalog: 'input', name: '名称', prop: 'name' },
+  { catalog: 'datepicker', type: 'daterange', prop: 'date' },
 ])
 const params = ref({})
 
