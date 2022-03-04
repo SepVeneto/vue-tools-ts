@@ -16,7 +16,7 @@
     "@types/markdown-it-container": "^2.0.4",
     "@types/prismjs": "^1.16.6",
     "basic-components": "workspace:*",
-    "vitepress": "^0.22.2"
+    "vitepress": "^0.22.3"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",

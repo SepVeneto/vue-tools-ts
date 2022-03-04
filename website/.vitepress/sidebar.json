@@ -45,6 +45,10 @@
     {
       "link": "status",
       "name": "状态"
+    },
+    {
+      "link": "date-picker",
+      "name": "日期时间选择器"
     }
   ]
 }

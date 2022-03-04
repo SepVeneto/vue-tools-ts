@@ -132,7 +132,10 @@ export default defineComponent({
         : <span>{getValue(row, column.property, config, props.disableTravel)}</span>
     };
 
-    const tableColumn = (config: Record<string, unknown>): JSX.Element => {
+    const tableColumn = (config: Record<string, unknown>): JSX.Element | null => {
+      if (!config) {
+        return null;
+      }
       if (config.type === 'selection') {
         return (<el-table-column {...config} />)
       }

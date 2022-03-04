@@ -84,7 +84,7 @@ export default defineComponent({
       return props.data?.slice(start, end);
     })
 
-    watch(props.config, (config: Record<string, unknown>[]) => {
+    watch(() => props.config, (config: Record<string, unknown>[]) => {
       config && (tableConfig.value = [...config]);
     }, { deep: true, immediate: true})
 

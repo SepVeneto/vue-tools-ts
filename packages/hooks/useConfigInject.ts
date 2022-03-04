@@ -12,7 +12,9 @@ export const useConfigInject = <T>(name: string, props: T) => {
   const value = computed<string>(() => configProvider.select?.value || (props as SelectProps).customValue || 'value');
   const optionsName = computed<string>(() => configProvider.select?.arrayName || (props as SelectProps).arrayName || 'rows');
   const response = computed(() => configProvider.response);
+  const datePicker = computed(() => configProvider.datePicker)
   return {
+    datePicker,
     table,
     pageName,
     pageSizeName,

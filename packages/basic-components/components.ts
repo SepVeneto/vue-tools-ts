@@ -11,6 +11,7 @@ import { BcMotionGroup } from '@basic-components/components/motionGroup';
 import SvgIcon from '@basic-components/components/svgIcon';
 import { BcConfigProvider } from '@basic-components/components/configProvider';
 import { BcStatus } from '@basic-components/components/status'
+import { BcDatePicker } from '@basic-components/components/date-picker';
 export default [
   BcStatus,
   BcButton,
@@ -24,5 +25,6 @@ export default [
   BcMotion,
   BcMotionGroup,
   SvgIcon,
-  BcConfigProvider 
+  BcConfigProvider,
+  BcDatePicker,
 ]

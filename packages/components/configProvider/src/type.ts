@@ -11,6 +11,9 @@ export interface ConfigProviderSelectProps {
   value?: string,
   arrayName?: string,
 }
+export interface ConfigProviderDatePicker {
+  valueFormat?: string,
+}
 export const configProviderProps = {
   table: {
     type: Object as PropType<ConfigProviderTableProps>
@@ -20,6 +23,12 @@ export const configProviderProps = {
   },
   response: {
     type: Object as PropType<{ code?: string, msg?: string, data?: string }>,
+  },
+  datePicker: {
+    type: Object as PropType<ConfigProviderDatePicker>,
+    default: (): ConfigProviderDatePicker => ({
+      valueFormat: 'YYYY-MM-DD hh:mm:ss'
+    })
   }
 }
 export type ConfigProviderProps = Partial<ExtractPropTypes<typeof configProviderProps>>;

@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@basic-components/components": "workspace:*",
-    "@basic-components/hooks": "workspace:^undefined",
-    "@basic-components/utils": "workspace:^undefined",
+    "@basic-components/hooks": "workspace: *",
+    "@basic-components/utils": "workspace: *",
     "@element-plus/icons-vue": "^0.2.7",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@vitejs/plugin-vue": "^1.10.1",

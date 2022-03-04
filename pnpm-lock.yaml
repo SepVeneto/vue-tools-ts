@@ -9,8 +9,8 @@ importers:
       '@babel/preset-env': ^7.16.4
       '@babel/preset-typescript': ^7.16.0
       '@basic-components/components': workspace:*
-      '@basic-components/hooks': workspace:^undefined
-      '@basic-components/utils': workspace:^undefined
+      '@basic-components/hooks': 'workspace: *'
+      '@basic-components/utils': 'workspace: *'
       '@element-plus/icons-vue': ^0.2.7
       '@rollup/plugin-babel': ^5.3.0
       '@rollup/plugin-commonjs': ^21.0.1
@@ -188,7 +188,7 @@ importers:
       basic-components: workspace:*
       normalize.css: ^8.0.1
       prismjs: ^1.25.0
-      vitepress: ^0.22.2
+      vitepress: ^0.22.3
     dependencies:
       normalize.css: 8.0.1
       prismjs: 1.25.0
@@ -197,7 +197,7 @@ importers:
       '@types/markdown-it-container': 2.0.4
       '@types/prismjs': 1.16.6
       basic-components: link:../packages/basic-components
-      vitepress: 0.22.2_sass@1.44.0
+      vitepress: 0.22.3_sass@1.44.0
 
 packages:
 
@@ -10088,9 +10088,9 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress/0.22.2_sass@1.44.0:
-    resolution: {integrity: sha512-L6ykQzBXKzLTSU3zZbILeF1TONO6juV/RrL0DsA9OayomVQjEOoFY7cVdKOpIBb3T5Jy/GAAVxcvWtU/XJ5k4g==}
-    engines: {node: '>=12.0.0'}
+  /vitepress/0.22.3_sass@1.44.0:
+    resolution: {integrity: sha512-Yfvu/rent2vp/TXIDZMutS6ft2TJPn4xngS48PYFWDEbuFI2ccUAXM481lF1qVVnCKxfh4g8e/KPvevSJdg1Bw==}
+    engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.0.0-alpha.50
