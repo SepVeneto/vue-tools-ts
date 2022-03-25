@@ -165,8 +165,8 @@ export default defineComponent({
       return props.simple
         ? (<custom-pagination
             v-models={[
-              [simpleTable.page, 'currentPage', ['modifier']],
-              [simpleTable.rows, 'pageSize', ['modifier']],
+              [simpleTable.page, 'currentPage'],
+              [simpleTable.rows, 'pageSize'],
             ]}
             {...{
               'onUpdate:currentPage': handleSimplePageChange,
@@ -177,8 +177,8 @@ export default defineComponent({
           />)
         : (<custom-pagination
             v-models={[
-              [searchModel.value.page, 'currentPage', ['modifier']],
-              [searchModel.value.rows, 'pageSize', ['modifier']],
+              [searchModel.value.page, 'currentPage'],
+              [searchModel.value.rows, 'pageSize'],
             ]}
             {...{
               'onUpdate:currentPage': handlePageChange,

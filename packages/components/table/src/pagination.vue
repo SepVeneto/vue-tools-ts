@@ -1,6 +1,6 @@
 <template>
   <el-pagination
-    class="custom-pagination"
+    class="bc-pagination"
     :background="background"
     style="text-align: right"
     :page-sizes="pageSizes || [5, 10, 20, 50]"
