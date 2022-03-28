@@ -88,25 +88,40 @@ table/remote
 
 :::
 
+## 空白单元格
+可以通过`table`的`emptyText`来设置表格对于空白单元格的处理方式
+支持`function`和`string`
+
+:::tip
+在渲染的时候组件内部会对单元格做空值判断，因此在通过`function`动态设置空白单元格的时候可以直接通过判断是否为`空字符串`来判断是否为空白单元格
+:::
+
+:::demo
+
+table/emptyCell
+
+:::
+
 ## Table 属性
 
 | 属性           | 说明                                                      | 类型                | 可选值 | 默认值                  |
 | :------------- | :-------------------------------------------------------- | :------------------ | :----- | :---------------------- |
 | config         | 表格列配置                                                | object              | -      | []                      |
-| data           | 表格数据源                                                | array               | -      | -                       |
+| data           | 表格数据源                                                | array               | -      | []                       |
 | api            | 远程数据获取的回调函数                                    | function(): promise | -      | -                       |
 | arrayName      | 远程获取表格数据的字段名，可通过 config-provider 全局设置 | string              | -      | -                       |
 | pagination     | 是否使用分页组件                                          | boolean             | -      | false                   |
-| params         | 分页参数，支持双向绑定                                    | object              | -      | `{ page: 1, rows: 20 }` |
+| modelValue/v-model | 分页参数，支持双向绑定                                    | object              | -      | `{ page: 1, rows: 20 }` |
 | total          | 本地数据源使用分页功能需要手动维护 total                  | number              | -      | 0                       |
 | colspanOptions | 行合并相关配置                                            | object              | -      | -                       |
 | padding        | 表格的内边距                                              | boolean             | -      | true                    |
 | custom         | 是否自定义表格数据                                        | boolean             | -      | false                   |
 | filter         | 表格数据过滤器                                            | function(data)      | -      | -                       |
-| immediate      | 是否在 created 时自动获取数据，仅在数据源为远程数据时有效 | boolean             | true   |
+| immediate      | 是否在 created 时自动获取数据，仅在数据源为远程数据时有效 | boolean             | - | true   |
 | fixXScroll     | 固定列过多在产生底部滚动条在浏览器视窗的底部（Beta）      | boolean             | -      | false                   |
 | simple         | 简易表格，支持本地分页                                    | boolean             | -      | false                   |
 | load           | 是否在获取远程数据里显示 loading 动画                     | boolean             | -      | true                    |
+| emptyText | 设置空白单元格的填充内容 | function(val, column)/string | - | '' |
 
 ## Table 插槽
 | 名称   | 说明                                 |

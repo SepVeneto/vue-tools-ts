@@ -28,6 +28,10 @@ export default defineComponent({
     ElRadio,
   },
   props: {
+    emptyText: {
+      type: [String, Function],
+      default: '',
+    },
     rowKey: [String, Function],
     disableTravel: Boolean,
     bodyBorder: Boolean,
@@ -127,9 +131,13 @@ export default defineComponent({
         return null;
       }
       const slot = context.slots[config.prop];
+      const value = getValue(row, column.property, config, props.disableTravel)
+      const realValue = typeof props.emptyText === 'function'
+        ? props.emptyText(value, column)
+        : ( value === '' ? props.emptyText : value)
       return slot
         ? slot(data)
-        : <span>{getValue(row, column.property, config, props.disableTravel)}</span>
+        : <span>{realValue}</span>
     };
 
     const tableColumn = (config: Record<string, unknown>): JSX.Element | null => {

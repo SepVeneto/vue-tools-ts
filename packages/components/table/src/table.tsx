@@ -192,6 +192,7 @@ export default defineComponent({
       getList,
       clearSelection: () => customTableRef.value.clearSelection()
     })
+    console.log(context.attrs, context)
     return () => (
       <section class="bc-table-wrap">
         <custom-table
