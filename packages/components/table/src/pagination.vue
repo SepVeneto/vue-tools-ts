@@ -14,6 +14,7 @@ import { defineComponent, PropType } from 'vue'
 import { ElPagination } from 'element-plus'
 export default defineComponent({
   name: 'BcTablePagination',
+  inheritAttrs: false,
   props: {
     pageSizes: Array as PropType<number[]>,
     layout: {

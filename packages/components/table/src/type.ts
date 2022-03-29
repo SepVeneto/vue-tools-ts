@@ -64,7 +64,7 @@ export const tableProps = {
   /**
    * 分页参数，支持双向绑定
    */
-  params: {
+  modelValue: {
     type: Object as PropType<Record<string, unknown>>,
     default: () => ({ page: 1, rows: 20 })
   },

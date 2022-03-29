@@ -2,7 +2,8 @@ import { defineComponent, getCurrentInstance, ref, watch, h } from 'vue'
 import { useConfigInject } from '@basic-components/hooks';
 import { RenderInputConfigType, searchProps } from './type';
 import { renderUnit } from '@basic-components/utils';
-import { BcButton, BcUpload } from '@basic-components/components'
+import BcButton from '@basic-components/components/button'
+import BcUpload from '@basic-components/components/upload'
 import { ElForm, ElFormItem } from 'element-plus'
 
 export default defineComponent({

@@ -1,21 +1,24 @@
 import { ElDialog } from 'element-plus'
 import { defineComponent, ref } from 'vue';
+import { FullScreen } from '@element-plus/icons-vue';
 export default defineComponent({
   name: 'BcDialog',
   // inheritAttrs: false, // 不被作为props的attributes不会暴露在组件的根元素上
   emits: ['update:modelValue', 'cancel', 'submit'],
   props: {
-    noFooter: Boolean
+    noFooter: Boolean,
+    needFullscreen: Boolean,
   },
   components: {
-    ElDialog
+    ElDialog,
+    FullScreen,
   },
   setup(props, context) {
     const fullscreen = ref(false);
-    const isFullscreen = ref(false);
+    // const isFullscreen = ref(false);
 
     fullscreen.value = !!context.attrs.fullscreen;
-    isFullscreen.value = !!context.attrs.fullscreen || context.attrs.fullscreen === '';
+    // isFullscreen.value = !!context.attrs.fullscreen || context.attrs.fullscreen === '';
 
     function handleFullScreen() {
       fullscreen.value = !fullscreen.value;
@@ -32,9 +35,9 @@ export default defineComponent({
       </footer>
     );
     const title = () => (
-      <header class="dialog-title">
+      <header class="bc-dialog-title">
         <span class="text">{context.attrs.title}</span>
-        {!isFullscreen.value && <i class="icon el-icon-full-screen" onClick={handleFullScreen}></i>}
+        {props.needFullscreen && <el-icon onClick={handleFullScreen}><full-screen /></el-icon>}
       </header>
     );
     const dialog = () => (
@@ -52,7 +55,7 @@ export default defineComponent({
       >
         <el-scrollbar
           ref="scrollbar"
-          class={['scrollbar', { isFullscreen: context.attrs.fullscreen || context.attrs.fullscreen === '' }]}>
+          class={['bc-dialog-scrollbar', { bcDialogisFullscreen: context.attrs.fullscreen || context.attrs.fullscreen === '' }]}>
           {context.slots.default?.()}
         </el-scrollbar>
       </el-dialog>

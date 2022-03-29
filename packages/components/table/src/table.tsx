@@ -7,6 +7,7 @@ import { tableProps } from './type';
 
 export default defineComponent({
   name: 'BcTable',
+  emits: ['update:modelValue'],
   components: {
     customTable,
     customPagination,
@@ -70,7 +71,7 @@ export default defineComponent({
     });
     const searchModel = computed({
       get() {
-        const { [pageName.value]: page, [pageSizeName.value]: rows, ...params } = props.params;
+        const { [pageName.value]: page, [pageSizeName.value]: rows, ...params } = props.modelValue;
         return { page, rows, ...params };
       },
       set(obj: Record<string, unknown>) {
@@ -119,7 +120,7 @@ export default defineComponent({
       const pageName = configProviderTable.value?.pageName ?? 'page';
       const pageSizeName = configProviderTable.value?.pageSizeName ?? 'rows';
       const { page, rows, ...args } = params;
-      context.emit('update:params', { ...args, [pageName]: page, [pageSizeName]: rows});
+      context.emit('update:modelValue', { ...args, [pageName]: page, [pageSizeName]: rows});
     }
     function spanMethod({ row, column, rowIndex }: CellType ) {
       const { includes = [], parentProp = null } = props.colspanOptions;
@@ -192,7 +193,6 @@ export default defineComponent({
       getList,
       clearSelection: () => customTableRef.value.clearSelection()
     })
-    console.log(context.attrs, context)
     return () => (
       <section class="bc-table-wrap">
         <custom-table

@@ -16,16 +16,16 @@
     }
   }
   @include e(scrollbar) {
-    :deep(.el-scrollbar__wrap) {
+    .el-scrollbar__wrap {
       max-height: 500px;
       padding-bottom: 17px;
     }
-    :deep(.el-scrollbar__view) {
+    .el-scrollbar__view {
       padding-right: 14px;
     }
   }
   @include e(isFullscreen) {
-    &:deep(.el-scrollbar__wrap) {
+    .el-scrollbar__wrap {
       max-height: calc(100vh - 200px);
     }
   }
