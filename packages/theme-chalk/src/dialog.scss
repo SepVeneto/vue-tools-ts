@@ -16,17 +16,19 @@
     }
   }
   @include e(scrollbar) {
-    .el-scrollbar__wrap {
+    & > .el-scrollbar__wrap {
       max-height: 500px;
       padding-bottom: 17px;
-    }
-    .el-scrollbar__view {
-      padding-right: 14px;
+      & > .el-scrollbar__view {
+        padding-right: 14px;
+      }
     }
   }
   @include e(isFullscreen) {
-    .el-scrollbar__wrap {
-      max-height: calc(100vh - 200px);
+    @include e(scrollbar) {
+      & > .el-scrollbar__wrap {
+        max-height: calc(100vh - 200px);
+      }
     }
   }
 }
