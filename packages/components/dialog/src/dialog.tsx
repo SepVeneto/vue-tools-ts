@@ -44,7 +44,7 @@ export default defineComponent({
     const title = () => (
       <header class="bc-dialog-title">
         <span class="text">{context.attrs.title}</span>
-        {props.needFullscreen && <el-icon onClick={handleFullScreen}><full-screen /></el-icon>}
+        {props.needFullscreen && <el-icon onClick={handleFullScreen} style="cursor: pointer;"><full-screen /></el-icon>}
       </header>
     );
     const dialog = () => (
