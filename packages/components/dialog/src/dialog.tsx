@@ -1,5 +1,5 @@
 import { ElDialog } from 'element-plus'
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { FullScreen } from '@element-plus/icons-vue';
 export default defineComponent({
   name: 'BcDialog',
@@ -16,6 +16,13 @@ export default defineComponent({
   setup(props, context) {
     const fullscreen = ref(false);
     // const isFullscreen = ref(false);
+    const isFullscreen = computed(() => {
+      if (props.needFullscreen) {
+        return fullscreen.value
+      } else {
+        return !!context.attrs.fullscreen || context.attrs.fullscreen === ''
+      }
+    })
 
     fullscreen.value = !!context.attrs.fullscreen;
     // isFullscreen.value = !!context.attrs.fullscreen || context.attrs.fullscreen === '';
@@ -50,12 +57,15 @@ export default defineComponent({
         {...context.attrs}
         v-slots={{
           title,
-          footer: () => (!props.noFooter && (context.slots?.footer || footer()))
+          footer: () => (!props.noFooter && (context.slots?.footer?.() || footer()))
         }}
       >
         <el-scrollbar
           ref="scrollbar"
-          class={['bc-dialog-scrollbar', { bcDialogisFullscreen: context.attrs.fullscreen || context.attrs.fullscreen === '' }]}>
+          class={[
+            'bc-dialog-scrollbar',
+            { 'bc-dialog-is-fullscreen': isFullscreen.value }
+          ]}>
           {context.slots.default?.()}
         </el-scrollbar>
       </el-dialog>

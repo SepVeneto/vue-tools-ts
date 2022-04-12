@@ -1,5 +1,13 @@
 @use 'mixins/mixins.scss' as *;
 
+// @include b(dialog) {
+//   @include e(scrollbar) {
+//     & > .el-scrollbar__wrap {
+//       max-height: calc(100vh - 200px);
+//     }
+//   }
+// }
+
 @include b(dialog) {
   @include e(title) {
     display: flex;
@@ -24,11 +32,10 @@
       }
     }
   }
-  @include e(isFullscreen) {
-    @include e(scrollbar) {
-      & > .el-scrollbar__wrap {
-        max-height: calc(100vh - 200px);
-      }
+  @include e(is-fullscreen) {
+    & > .el-scrollbar__wrap {
+      max-height: none;
+      height: calc(100vh - 200px);
     }
   }
 }
