@@ -88,6 +88,7 @@ export default defineComponent({
           {searchConfig.value?.map(item => (
             <el-form-item>
               {renderUnit(h, props.modelValue as Record<string, unknown>, item, {
+                handleSearch: props.search,
                 updateData,
                 context: instance,
               })}

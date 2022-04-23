@@ -40,7 +40,7 @@ export const renderUnit = (
       {...{
         'onUpdate:modelValue': (val: string) => updateData(value, prop, val, context),
       }}
-      on-keyup={(e: KeyboardEvent) => e.code === 'Enter' && handleSearch(context)}
+      onkeyup={(e: KeyboardEvent) => e.code === 'Enter' && handleSearch(context)}
       {...{ attrs: params }}
     />
   } else if (catalog === 'select') {

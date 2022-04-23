@@ -32,7 +32,6 @@ export default defineComponent({
     }
   },
   render() {
-    console.log(this.$attrs)
     return (<el-date-picker
       value-format={this.datePicker?.valueFormat}
       style={{ width: this.realWidth }}
