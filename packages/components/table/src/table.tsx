@@ -191,7 +191,8 @@ export default defineComponent({
     }
     context.expose({
       getList,
-      clearSelection: () => customTableRef.value.clearSelection()
+      clearSelection: () => customTableRef.value.clearSelection(),
+      getRef: () => customTableRef.value.getRef()
     })
     return () => (
       <section class="bc-table-wrap">

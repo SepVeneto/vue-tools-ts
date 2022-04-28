@@ -117,7 +117,7 @@ export default defineComponent({
       }
       const { row, column, $index } = data;
       if (config.type === 'expand') {
-        return context.slots.expand;
+        return context.slots.expand?.(data);
       } else if (config.type === 'radio') {
         // 不知道哪儿来的-1
         if (!~$index) {
@@ -161,6 +161,7 @@ export default defineComponent({
     };
     context.expose({
       clearSelection,
+      getRef: () => tableRef.value
     })
     return () => (
       <el-table

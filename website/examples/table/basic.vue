@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRaw } from 'vue'
+import { defineComponent, onMounted, ref, toRaw } from 'vue'
 export default defineComponent({
   name: 'BasicTable',
 })
@@ -28,6 +28,6 @@ const tableData = ref([
   { name: '安德烈亚•多利亚', age: 18, height: 186.9, weight: 28700 },
 ])
 function clear() {
-  tableRef.value.clearSelection();
+  tableRef.value.getRef().clearSelection()
 }
 </script>
