@@ -76,7 +76,7 @@ export default defineComponent({
       rowSelection.value = props.rowSelection ? { ...props.rowSelection } : props.rowSelection
     }, { deep: true, immediate: true })
     const [renderSelect, renderSelectTop] = useSelection(rowSelection, {
-      pageData: props.data,
+      pageData: computed(() => props.data),
       getRowKey,
       getRowByKey,
     })

@@ -7,8 +7,8 @@
       <span>{{row.name}}</span>
     </template>
     <template #operate="{row}">
-      <bc-button type="text" @click="handleEdit(row)">编辑</bc-button>
-      <bc-button type="text" @click="handleRemove(row)">删除</bc-button>
+      <bc-button text type="primary" @click="handleEdit(row)">编辑</bc-button>
+      <bc-button text type="primary" @click="handleRemove(row)">删除</bc-button>
     </template>
   </bc-table>
 </template>

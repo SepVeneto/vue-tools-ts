@@ -27,7 +27,7 @@ export function useSelection(
   })
 
   const rowKeys = computed(() => {
-    return pageData.map(item => getRowKey(item)).filter(item => !!item)
+    return pageData.value.map(item => getRowKey(item)).filter(item => !!item)
   })
 
   function setSelectedKeys(keys: any[]) {
@@ -70,7 +70,9 @@ export function useSelection(
     const keySet = new Set(derivedSelectedKeySet.value)
     const checkedCurrentAll = computed(() => rowKeys.value.every(key => keySet.has(key)))
     const checkedCurrentSome = computed(() => rowKeys.value.some(key => keySet.has(key)))
+    console.log(checkedCurrentAll.value, rowKeys.value, keySet)
     function onSelectAllChange() {
+      console.log('click')
       if (checkedCurrentAll.value) {
         rowKeys.value.forEach(key => {
           keySet.delete(key)
