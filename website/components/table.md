@@ -16,6 +16,16 @@ table/basic
 
 :::
 
+## 多选
+
+由于`element`的`table`多选功能的手动选择依赖表格数据的引用，在回显的时候很难处理，因此参考了`antdv`的做法，增强了多选功能，可以通过`{ type: 'select' }`开启.
+
+:::demo
+
+table/selection
+
+:::
+
 ## 自定义单元格
 
 :::demo 可以通过插槽的形式，自定义单元格里的内容
@@ -122,6 +132,7 @@ table/emptyCell
 | simple         | 简易表格，支持本地分页                                    | boolean             | -      | false                   |
 | load           | 是否在获取远程数据里显示 loading 动画                     | boolean             | -      | true                    |
 | emptyText | 设置空白单元格的填充内容 | function(val, column)/string | - | '' |
+| rowSelection | 列表项是否可选择，配置项见`Row-selection` | object | null |
 
 ## Table 插槽
 | 名称   | 说明                                 |
@@ -155,4 +166,14 @@ table/emptyCell
 | filter | 列数据过滤器 | function / object | - | - |
 | unit | 列数据的单位，会自动添加在数据后 | string | - | - |
 
+## Row-selection 属性
+多选功能的配置
 
+:::warning
+必须设置`row-key`
+:::
+
+| 参数           | 说明                                                      | 类型                | 可选值 | 默认值                  |
+| :------------- | :-------------------------------------------------------- | :------------------ | :----- | :---------------------- |
+| selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | string[] | [] |
+| onChange | 选中项发生变化时的回调 | Function(selectedRowKeys) | - |
