@@ -1,4 +1,4 @@
-import { computed, defineComponent, reactive, ref, watch } from 'vue'
+import { computed, defineComponent, getCurrentInstance, reactive, ref, watch} from 'vue'
 import { useConfigInject } from '@basic-components/hooks';
 import customTable from './customTable';
 import customPagination from './pagination.vue';

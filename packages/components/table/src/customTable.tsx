@@ -3,14 +3,18 @@ import {
   getCurrentInstance,
   onMounted,
   ref,
+  shallowRef,
   watch,
+  watchEffect,
   PropType,
-  Fragment
+  Fragment,
+  computed,
 } from 'vue';
 import { TableColumnCtx } from 'element-plus/lib/components/table/src/table-column/defaults';
 import { extractObject, getValue, setValue } from '@basic-components/utils';
 import cellEdit from './cellEdit';
 import { ElTable, ElTableColumn, ElRadio } from 'element-plus';
+import { useSelection } from './useSelection'
 
 export type RowType = {
   row: any,
@@ -31,6 +35,13 @@ export default defineComponent({
     emptyText: {
       type: [String, Function],
       default: '',
+    },
+    rowSelection: {
+      type: Object as PropType<{ selectedRowKeys: any[], onChange: (selection: any[], row: any) => void }>,
+      default: () => ({
+        selectedRowKeys: [],
+        onChange: () => {},
+      })
     },
     rowKey: [String, Function],
     disableTravel: Boolean,
@@ -58,17 +69,31 @@ export default defineComponent({
     const instance = getCurrentInstance();
 
     const tableRef = ref();
+    const keySet = ref(new Set());
+
+    const rowSelection = ref();
+    watch(() => props.rowSelection, () => {
+      rowSelection.value = props.rowSelection ? { ...props.rowSelection } : props.rowSelection
+    }, { deep: true, immediate: true })
+    const [renderSelect, renderSelectTop] = useSelection(rowSelection, {
+      pageData: props.data,
+      getRowKey,
+      getRowByKey,
+    })
 
     watch(() => props.config, (config) => {
       tableConfig.value = [...config] ;
     }, { immediate: true, deep: true });
+    // watchEffect(() => {
+    //   keySet.value = new Set(props.rowSelection.selectedRowKeys)
+    // })
 
     function clearSelection() {
       tableRef.value.clearSelection()
     }
-    function getRowKey(row: any, rowKey?: string | Function, index?: number) {
+    function getRowKey(row: any, rowKey = props.rowKey, index?: number) {
       if (!rowKey) {
-        console.warn('不推荐使用index作为key')
+        console.warn('没有设置row-key，不推荐使用index作为key')
         return index;
       }
       if (typeof rowKey === 'function') {
@@ -76,18 +101,13 @@ export default defineComponent({
       } else if (row[rowKey]) {
         return row[rowKey];
       } else {
-        console.warn('不推荐使用index作为key')
-        return index;
+        return false
       }
     }
+    function getRowByKey(key) {
+      return props.data.find((item: any) => getRowKey(item) === key)
+    }
 
-    // onMounted(() => {
-    //   if (props.banSelectAll) {
-    //     const node = tableRef.value.$el.querySelector('.custom-header');
-    //     const checkbox = node.querySelector('.el-checkbox');
-    //     checkbox?.remove();
-    //   }
-    // })
     const renderRadio = (row: any, index: number, config: any) => (
       <el-radio
         model-value={radio.value}
@@ -112,7 +132,7 @@ export default defineComponent({
 
     const getColumnSlot = (data: RowType, config: any) => {
       if (config.children && config.children.length > 0) {
-        return config.children.map(config => tableColumn(config))
+        return config.children.map(config => transformTableColumn(config))
         // return tableColumns(config.children);
       }
       const { row, column, $index } = data;
@@ -140,9 +160,18 @@ export default defineComponent({
         : <span>{realValue}</span>
     };
 
-    const tableColumn = (config: Record<string, unknown>): JSX.Element | null => {
+    const transformTableColumn = (config: Record<string, unknown>): JSX.Element | null => {
       if (!config) {
         return null;
+      }
+      if (config.type === 'select') {
+        return (<el-table-column
+          width="48px"
+          v-slots={{
+            default: (data: RowType) => renderSelect(data, config),
+            header: () => renderSelectTop()
+          }}
+        />)
       }
       if (config.type === 'selection') {
         return (<el-table-column {...config} />)
@@ -163,21 +192,26 @@ export default defineComponent({
       clearSelection,
       getRef: () => tableRef.value
     })
-    return () => (
+
+    return {
+      tableRef,
+      tableConfig,
+      transformTableColumn
+    }
+  },
+  render() {
+    return (
       <el-table
-        class={['custom-table', { 'cutom-icon': props.customIcon }, { 'current-hover': props.hiddenCurrent }]}
-        ref={tableRef}
+        class={['custom-table', { 'cutom-icon': this.customIcon }, { 'current-hover': this.hiddenCurrent }]}
+        ref={this.tableRef}
         border
-        data={props.data}
+        data={this.data}
         header-cell-class-name="custom-header"
-        row-key={props.rowKey}
-        onSelect={(...args) => context.emit.apply(this, ['select', ...args])}
-        {...context.attrs}
+        row-key={this.rowKey}
+        onSelect={(...args: any) => this.$emit.apply(this, ['select', ...args])}
+        {...this.$attrs}
       >
-        {/* {tableConfig.value.map(config => (
-          <el-table-column {...config} />
-        ))} */}
-        {tableConfig.value.map(config => tableColumn(config))}
+        {this.tableConfig.map(config => this.transformTableColumn(config))}
       </el-table>
     )
   }
