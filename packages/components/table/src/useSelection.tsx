@@ -2,12 +2,15 @@ import { RowType } from './customTable'
 import { computed, Ref } from 'vue'
 export function useSelection(
   rowSelectionRef: Ref<any>,
-  configRef: any
+  configRef: {
+    getRowKey: (row: Record<string, any>) => string,
+    pageData: Record<string, any>,
+    getRowByKey: (key: string) => Record<string, any> | undefined
+  }
 ): [(data: RowType, config: Record<string, any>) => JSX.Element, () => JSX.Element] {
-  const { getRowKey, pageData, getRowByKey } = configRef
+  const { getRowKey, pageData } = configRef
   const mergedRowSelection = computed(() => {
     const tmp = rowSelectionRef.value ?? {}
-    console.log(tmp)
     return { ...tmp }
   })
 
@@ -61,18 +64,17 @@ export function useSelection(
     return (
       <el-checkbox
         model-value={keySet.has(key)}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e: MouseEvent) => e.stopPropagation()}
         onChange={() => onRowSelect()}
       />
     )
   }
   function renderTop() {
     const keySet = new Set(derivedSelectedKeySet.value)
-    const checkedCurrentAll = computed(() => rowKeys.value.every(key => keySet.has(key)))
-    const checkedCurrentSome = computed(() => rowKeys.value.some(key => keySet.has(key)))
-    console.log(checkedCurrentAll.value, rowKeys.value, keySet)
+    const disabledChecked = computed(() => rowKeys.value.length === 0)
+    const checkedCurrentAll = computed(() => rowKeys.value.every((key: string) => keySet.has(key)))
+    const checkedCurrentSome = computed(() => rowKeys.value.some((key: string) => keySet.has(key)))
     function onSelectAllChange() {
-      console.log('click')
       if (checkedCurrentAll.value) {
         rowKeys.value.forEach(key => {
           keySet.delete(key)
@@ -88,9 +90,10 @@ export function useSelection(
     }
     return (
       <el-checkbox
-        model-value={checkedCurrentAll.value}
+        model-value={checkedCurrentAll.value && !disabledChecked.value}
         indeterminate={!checkedCurrentAll.value && checkedCurrentSome.value}
         onChange={onSelectAllChange}
+        disabled={disabledChecked.value}
       />
     )
   }

@@ -54,7 +54,7 @@ export default defineComponent({
     refs: String,
     customIcon: Boolean,
     data: {
-      type: Array,
+      type: Array as PropType<Record<string, any>[]>,
       default: () => [],
     },
     config: {
@@ -104,7 +104,7 @@ export default defineComponent({
         return false
       }
     }
-    function getRowByKey(key) {
+    function getRowByKey(key: string) {
       return props.data.find((item: any) => getRowKey(item) === key)
     }
 

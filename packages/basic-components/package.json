@@ -1,6 +1,6 @@
 {
   "name": "basic-components",
-  "version": "1.3.0-alpha0.2",
+  "version": "1.3.0",
   "description": "",
   "publishConfig": {
     "main": "lib/index.js"
@@ -13,7 +13,16 @@
     "dist/*",
     "theme-chalk/*.css"
   ],
-  "author": "",
+  "author": "SepVeneto",
+  "homepage": "https://sepveneto.github.io/vue-tools-ts/guide/install.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SepVeneto/vue-tools-ts"
+  },
+  "bugs": {
+    "url": "https://github.com/SepVeneto/vue-tools-ts/issues",
+    "email": "sepveneto@qq.com"
+  },
   "license": "ISC",
   "peerDependencies": {
     "element-plus": "^2.0.2",
