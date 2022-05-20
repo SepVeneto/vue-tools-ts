@@ -1,5 +1,10 @@
 import { ExtractPropTypes, PropType } from 'vue';
 
+export interface ConfigProviderSearchProps {
+  pageName?: string,
+  pageSizeName?: string,
+  export?: boolean,
+}
 export interface ConfigProviderTableProps {
   arrayName?: string,
   pageName?: string,
@@ -17,6 +22,9 @@ export interface ConfigProviderDatePicker {
 export const configProviderProps = {
   table: {
     type: Object as PropType<ConfigProviderTableProps>
+  },
+  search: {
+    type: Object as PropType<ConfigProviderSearchProps>
   },
   select: {
     type: Object as PropType<ConfigProviderSelectProps>

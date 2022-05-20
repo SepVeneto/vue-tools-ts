@@ -17,7 +17,10 @@ export default defineComponent({
     BcUpload,
   },
   setup(props, context) {
-    const { pageName } = useConfigInject('table', props);
+    const searchInject = useConfigInject('search', props).search;
+    const { pageName: tablePageName } = useConfigInject('table', props);
+    const pageName = searchInject?.pageName ?? tablePageName.value
+    const needExport = searchInject?.export ?? props.export
     const instance = getCurrentInstance();
 
     const uploadVisible = ref(false);
@@ -43,7 +46,7 @@ export default defineComponent({
       e.preventDefault();
     }
     function handleSearch(params: MouseEvent | Record<string, unknown>) {
-      context.emit('update:modelValue', { ...props.modelValue, ...(params instanceof MouseEvent ? {} : params), [pageName.value]: 1 });
+      context.emit('update:modelValue', { ...props.modelValue, ...(params instanceof MouseEvent ? {} : params), [pageName]: 1 });
       props.search?.();
     }
     function handleReset() {
@@ -79,7 +82,7 @@ export default defineComponent({
     );
     const exportButton = () => (
       context.slots.export
-      || (props.export && <bc-button onClick={() => { context.emit('export') }}>导出</bc-button>)
+      || (needExport && <bc-button onClick={() => { context.emit('export') }}>导出</bc-button>)
     );
     const layout = { create, search, reset, upload, export: exportButton, advance: () => <></> };
     const node = () => (

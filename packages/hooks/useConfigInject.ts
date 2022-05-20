@@ -14,6 +14,7 @@ export const useConfigInject = <T>(name: string, props: T) => {
   const response = computed(() => configProvider.response);
   const datePicker = computed(() => configProvider.datePicker)
   return {
+    search: configProvider.search,
     datePicker,
     table,
     pageName,

@@ -70,6 +70,9 @@ const globalConfig = ref({
     pageSize: 'pageSize',
     arrayName: 'list',
   },
+  search: {
+    export: false,
+  },
   select: {
     label: 'name',
     value: 'id',

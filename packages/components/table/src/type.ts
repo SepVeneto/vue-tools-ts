@@ -96,6 +96,12 @@ export const tableProps = {
   load: {
     type: Boolean,
     default: true,
+  },
+  /**
+   * 是否禁用activated时自动触发列表更新
+   */
+  activatedUpdate: {
+    type: Boolean,
   }
 }
 

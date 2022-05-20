@@ -1,4 +1,4 @@
-import { computed, defineComponent, getCurrentInstance, reactive, ref, watch} from 'vue'
+import { computed, defineComponent, getCurrentInstance, onActivated, reactive, ref, watch} from 'vue'
 import { useConfigInject } from '@basic-components/hooks';
 import customTable from './customTable';
 import customPagination from './pagination.vue';
@@ -89,15 +89,23 @@ export default defineComponent({
       config && (tableConfig.value = [...config]);
     }, { deep: true, immediate: true})
 
-    if (props.custom) {
-      props.api && props.immediate && props.api();
+    if (props.activatedUpdate) {
+      onActivated(() => {
+        init()
+      })
     } else {
-      if (props.load && props.immediate && props.api) {
-        loading.value = true;
-      }
-      props.api && props.immediate && getList();
+      init()
     }
-
+    function init() {
+      if (props.custom) {
+        props.api && props.immediate && props.api();
+      } else {
+        if (props.load && props.immediate && props.api) {
+          loading.value = true;
+        }
+        props.api && props.immediate && getList();
+      }
+    }
     function getList() {
       if (!props.custom && props.load) {
         loading.value = true;
