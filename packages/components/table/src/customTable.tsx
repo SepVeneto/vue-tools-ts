@@ -15,6 +15,7 @@ import { extractObject, getValue, setValue } from '@basic-components/utils';
 import cellEdit from './cellEdit';
 import { ElTable, ElTableColumn, ElRadio } from 'element-plus';
 import { useSelection } from './useSelection'
+// import useLazyStore from './useLazyStore';
 
 export type RowType = {
   row: any,
@@ -37,7 +38,7 @@ export default defineComponent({
       default: '',
     },
     rowSelection: {
-      type: Object as PropType<{ selectedRowKeys: any[], onChange: (selection: any[], row: any) => void }>,
+      type: Object as PropType<{ preserveRowKeys?: boolean, selectedRowKeys: any[], onChange: (selection: any[], rows: any[], row: any) => void }>,
       default: () => ({
         selectedRowKeys: [],
         onChange: () => {},
@@ -69,16 +70,24 @@ export default defineComponent({
     const instance = getCurrentInstance();
 
     const tableRef = ref();
-    const keySet = ref(new Set());
 
     const rowSelection = ref();
+    // const getRowKeyFn = computed(() => {
+    //   if (typeof props.rowKey === 'function') {
+    //     return props.rowKey
+    //   }
+    //   return row => {
+    //     return (row as any)?.[props.rowKey as string]
+    //   }
+    // })
     watch(() => props.rowSelection, () => {
       rowSelection.value = props.rowSelection ? { ...props.rowSelection } : props.rowSelection
     }, { deep: true, immediate: true })
+    // const [getRecordByKey] = useLazyStore(computed(() => props.data), getRowKeyFn)
     const [renderSelect, renderSelectTop] = useSelection(rowSelection, {
       pageData: computed(() => props.data),
       getRowKey,
-      getRowByKey,
+      getRecordByKey: getRowByKey
     })
 
     watch(() => props.config, (config) => {
@@ -105,7 +114,7 @@ export default defineComponent({
       }
     }
     function getRowByKey(key: string) {
-      return props.data.find((item: any) => getRowKey(item) === key)
+      return props.data.find((item: any) => getRowKey(item) === key)!
     }
 
     const renderRadio = (row: any, index: number, config: any) => (

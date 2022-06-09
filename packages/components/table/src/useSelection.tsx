@@ -1,11 +1,11 @@
 import { RowType } from './customTable'
-import { computed, Ref } from 'vue'
+import { computed, Ref, shallowRef } from 'vue'
 export function useSelection(
   rowSelectionRef: Ref<any>,
   configRef: {
     getRowKey: (row: Record<string, any>) => string,
     pageData: Record<string, any>,
-    getRowByKey: (key: string) => Record<string, any> | undefined
+    getRecordByKey: (key: string) => Record<string, any>
   }
 ): [(data: RowType, config: Record<string, any>) => JSX.Element, () => JSX.Element] {
   const { getRowKey, pageData } = configRef
@@ -28,23 +28,44 @@ export function useSelection(
     const keys = derivedSelectedKey.value
     return new Set(keys)
   })
+  const preserveRecords = shallowRef(new Map<any, Record<string, any>>())
 
   const rowKeys = computed(() => {
     return pageData.value.map(item => getRowKey(item)).filter(item => !!item)
   })
 
-  function setSelectedKeys(keys: any[]) {
-    // let availableKeys: any[] = [];
-    // let rows = []
-    const { preserved, onChange: onSelectionChange } = mergedRowSelection.value
-    // availableKeys = keys;
-    // keys.forEach(key => {
-    //   const row = getRowByKey(key)
-    //   if (row != null) {
-    //     rows.push(row)
-    //   }
-    // })
-    onSelectionChange?.(keys)
+  function updateRecordsCache(keys: any[]) {
+    if (mergedRowSelection.value.preserveRowKeys) {
+      const newCache = new Map<any, Record<string, any>>()
+      keys.forEach(key => {
+        let record = configRef.getRecordByKey(key)
+        if (!record && preserveRecords.value.has(key)) {
+          record = preserveRecords.value.get(key)!
+        }
+        newCache.set(key, record)
+      })
+      preserveRecords.value = newCache;
+    }
+  }
+
+  function setSelectedKeys(keys: any[], record?: RowType) {
+    let avaliableKeys: any[] = [];
+    let records: Record<string, any>[] = []
+    updateRecordsCache(keys)
+    const { preserveRowKeys, onChange: onSelectionChange } = mergedRowSelection.value
+    if (preserveRowKeys) {
+      avaliableKeys = keys
+      records = keys.map(key => preserveRecords.value.get(key)!)
+    } else {
+      keys.forEach(key => {
+        const record = configRef.getRecordByKey(key)
+        if (record !== undefined) {
+          avaliableKeys.push(key)
+          records.push(record)
+        }
+      })
+    }
+    onSelectionChange?.(avaliableKeys, records, record)
   }
 
   function renderCell({ row }: RowType, config: Record<string, any>) {
@@ -58,7 +79,7 @@ export function useSelection(
       } else {
         keySet.add(rowkey)
       }
-      setSelectedKeys(Array.from(keySet))
+      setSelectedKeys(Array.from(keySet), row)
     }
 
     return (
