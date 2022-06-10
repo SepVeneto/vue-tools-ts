@@ -17,4 +17,5 @@ upload/basic
 | :------------- | :-------------------------------------------------------- | :------------------ | :----- | :---------------------- |
 | modelValue/v-model | 控制弹框展示 | boolean | - | - |
 | template-api | 下载模板的回调 | (): void | - | - |
-| upload-api | 触发文件上传的回调 | (form: FormData): Promise | - | 相当于`el-upload`的`http-request`，触发时会自动组合成`FormData`输出 |
+| upload-api | 触发文件上传的回调 | (form: File | FormData | UploadRequestOptions): Promise | - | 相当于`el-upload`的`http-request` |
+| callback-type | 文件上传回调的参数 | string | 'file','form','raw' | 'form' |
