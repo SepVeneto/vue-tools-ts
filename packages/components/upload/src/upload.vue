@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { UploadFile } from 'element-plus/lib/components/upload/src/upload.type';
+import { UploadRequestOptions } from 'element-plus'
 import { defineComponent, computed, ref } from 'vue';
 import { uploadProps } from './type';
 import { Plus } from '@element-plus/icons-vue'
@@ -58,15 +58,24 @@ export default defineComponent({
       }
     });
 
-    function uploadFile() {
+    function uploadFile(options: UploadRequestOptions) {
       uploading.value = true;
       const upload = uploadRef.value;
-      const blobList: UploadFile[] = upload.uploadFiles;
-      const form = new FormData();
-      blobList.forEach(item => {
-        form.append('file', item.raw);
-      })
-      props.uploadApi?.(form).then(() => {
+      const form = new FormData()
+
+      let callbackData: File | UploadRequestOptions | FormData;
+      switch (props.callbackType) {
+        case 'file':
+          callbackData = options.file
+          break;
+        case 'raw':
+          callbackData = options;
+          break;
+        default:
+          form.append('file', options.file)
+          callbackData = form;
+      }
+      props.uploadApi?.(callbackData).then(() => {
         uploading.value = false;
         context.emit('success');
         context.emit('update:modelValue', false);
@@ -75,7 +84,7 @@ export default defineComponent({
         context.emit('error');
       }).finally(() => {
         upload.clearFiles();
-        upload.uploadFiles = [];
+        // upload.uploadFiles = [];
       })
     }
     function handleDownloadTemplate() {
