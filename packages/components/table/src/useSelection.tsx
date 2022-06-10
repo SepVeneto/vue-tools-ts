@@ -1,5 +1,5 @@
 import { RowType } from './customTable'
-import { computed, Ref, shallowRef } from 'vue'
+import { computed, Ref, shallowRef, watchEffect } from 'vue'
 export function useSelection(
   rowSelectionRef: Ref<any>,
   configRef: {
@@ -32,6 +32,10 @@ export function useSelection(
 
   const rowKeys = computed(() => {
     return pageData.value.map(item => getRowKey(item)).filter(item => !!item)
+  })
+
+  watchEffect(() => {
+    updateRecordsCache(mergedSelectedKeys.value)
   })
 
   function updateRecordsCache(keys: any[]) {
