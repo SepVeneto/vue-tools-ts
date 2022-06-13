@@ -35,7 +35,7 @@ export default defineComponent({
         <span>{node()}</span>
       </el-tooltip>
     )
-    const spanContent = !props.tooltip ? (context.slots.default?.() || false) : false
+    const spanContent = !props.tooltip ? (context.slots.default || null) : null
     const button = () => (
       <el-button
         class={['bc-button', {mini: props.mini }]}
@@ -46,7 +46,7 @@ export default defineComponent({
           onClick: handleClick,
         }}
       >
-        <span>{spanContent}</span>
+        <span>{spanContent?.()}</span>
       </el-button>
     )
     const iconButton = () => (
