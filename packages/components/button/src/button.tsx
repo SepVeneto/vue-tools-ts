@@ -13,16 +13,6 @@ export default defineComponent({
     ElTooltip
   },
   setup(props, context) {
-    const isSpecialButton = computed(() => {
-      return SPECIAL.includes(props.type)
-    })
-    const specialIcon = computed(() => {
-      if (!isSpecialButton.value) {
-        return null;
-      }
-      return `bc${props.type.replace(/\S?/, letter => letter.toUpperCase())}`;
-    })
-
     function handleClick(event: MouseEvent) {
       if (props.confirm || props.type === 'delete' || props.type === 'danger') {
         const confirmText = typeof props.confirm === 'boolean' ? '此操作无法撤销，是否继续？' : props.confirm;
@@ -45,24 +35,33 @@ export default defineComponent({
         <span>{node()}</span>
       </el-tooltip>
     )
+    const spanContent = !props.tooltip ? (context.slots.default?.() || false) : false
     const button = () => (
       <el-button
-        class={['bc-button', {mini: props.mini || isSpecialButton.value}]}
+        class={['bc-button', {mini: props.mini }]}
         {...{
           ...context.attrs,
-          type: props.type === 'delete' ? 'danger' : (isSpecialButton.value ? 'primary' : props.type),
-          tooltip: isSpecialButton.value || props.tooltip,
+          type: props.type,
+          tooltip: props.tooltip,
           onClick: handleClick,
         }}
       >
-        <span>{props.tooltip || context.slots.default?.()}</span>
-        {/* {(props.icon || isSpecialButton.value) && !context.attrs.loading
-          && <svg-icon icon={props.icon || specialIcon.value} />}
-        <span>{isSpecialButton.value || props.tooltip || context.slots.default?.()}</span> */}
+        <span>{spanContent}</span>
       </el-button>
     )
-    return () => (context.slots.default && (props.tooltip || isSpecialButton.value))
-      ? tooltip(button)
-      : button()
+    const iconButton = () => (
+      <el-button
+        class={['bc-button', {mini: props.mini }]}
+        {...{
+          ...context.attrs,
+          type: props.type,
+          tooltip: props.tooltip,
+          onClick: handleClick,
+        }}
+      />
+    )
+    return () => (context.slots.default && props.tooltip)
+      ? tooltip(iconButton)
+      : (context.attrs.icon ? iconButton() : button())
   },
 });

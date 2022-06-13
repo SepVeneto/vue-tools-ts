@@ -4,6 +4,7 @@
     mini
     tooltip
     type="primary"
+    size="small"
   >编辑</bc-button>
 </template>
 

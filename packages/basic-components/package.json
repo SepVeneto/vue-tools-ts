@@ -1,6 +1,6 @@
 {
   "name": "basic-components",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "",
   "publishConfig": {
     "main": "lib/index.js"
