@@ -41,9 +41,9 @@ export default defineComponent({
         <el-button onClick={() => context.emit('submit')}>确认</el-button>
       </footer>
     );
-    const title = () => (
-      <header class="bc-dialog-title">
-        <span class="text">{context.attrs.title}</span>
+    const header = () => (
+      <header class="bc-dialog-header">
+        {context.slots.header?.() ?? context.slots.title?.() ?? <span class="text">{context.attrs.title}</span>}
         {props.needFullscreen && <el-icon onClick={handleFullScreen} style="cursor: pointer;"><full-screen /></el-icon>}
       </header>
     );
@@ -56,7 +56,7 @@ export default defineComponent({
         }}
         {...context.attrs}
         v-slots={{
-          title,
+          header,
           footer: () => (!props.noFooter && (context.slots?.footer?.() || footer()))
         }}
       >

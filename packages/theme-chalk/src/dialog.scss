@@ -9,7 +9,7 @@
 // }
 
 @include b(dialog) {
-  @include e(title) {
+  @include e(header) {
     display: flex;
     flex: 1;
     align-items: center;

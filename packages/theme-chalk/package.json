@@ -12,9 +12,9 @@
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
-    "gulp-sass": "^5.0.0",
-    "kolorist": "^1.5.0",
-    "sass": "^1.42.1",
-    "ts-node": "^10.4.0"
+    "gulp-sass": "^5.1.0",
+    "kolorist": "^1.5.1",
+    "sass": "^1.52.3",
+    "ts-node": "^10.8.1"
   }
 }
