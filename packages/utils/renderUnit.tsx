@@ -1,6 +1,7 @@
 import { ComponentInternalInstance } from "vue";
 import { RenderInputConfigType } from "@basic-components/components/search";
 import { BcButton, BcSelect } from '@basic-components/components'
+import { getValue, setValue } from '@basic-components/utils'
 
 export type RenderContextType = {
   handleSearch?: () => void,
@@ -17,7 +18,7 @@ function updateData(
   if (context?.updateData) {
     context.updateData(prop, val);
   } else {
-    params[prop] = val;
+    setValue(params, prop, val)
   }
 }
 function handleSearch(context: RenderContextType) {
@@ -33,9 +34,10 @@ export const renderUnit = (
   context: RenderContextType,
 ) => {
   const { catalog, prop, name, options, ...params } = config;
+  const modelValue = getValue(value, prop)
   if (catalog === 'input') {
     return <bc-input
-      model-value={value[prop]}
+      model-value={modelValue}
       placeholder={name}
       {...{
         'onUpdate:modelValue': (val: string) => updateData(value, prop, val, context),
@@ -45,7 +47,7 @@ export const renderUnit = (
     />
   } else if (catalog === 'select') {
     return <bc-select
-      model-value={value[prop]}
+      model-value={modelValue}
       placeholder={name}
       {...{
         'onUpdate:modelValue': (val: string | string[]) => updateData(value, prop, val, context),
@@ -56,7 +58,7 @@ export const renderUnit = (
     />
   } else if (catalog === 'datepicker') {
     return <bc-date-picker
-      model-value={value[prop]}
+      model-value={modelValue}
       placeholder={name}
       {...{
         startPlaceholder: '开始日期',

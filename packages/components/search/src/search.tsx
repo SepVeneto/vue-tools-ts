@@ -1,7 +1,7 @@
 import { defineComponent, getCurrentInstance, ref, watch, h } from 'vue'
 import { useConfigInject } from '@basic-components/hooks';
 import { RenderInputConfigType, searchProps } from './type';
-import { renderUnit } from '@basic-components/utils';
+import { renderUnit, setValue } from '@basic-components/utils';
 import BcButton from '@basic-components/components/button'
 import BcUpload from '@basic-components/components/upload'
 import { ElForm, ElFormItem } from 'element-plus'
@@ -37,7 +37,9 @@ export default defineComponent({
     }, { immediate: true })
 
     function updateData(key: string, val: string | string[]) {
-      context.emit('update:modelValue', { ...props.modelValue, [key]: val });
+      const modelValue = { ...props.modelValue }
+      setValue(modelValue, key, val)
+      context.emit('update:modelValue', modelValue);
     }
     function handleUpload() {
       uploadVisible.value = true;

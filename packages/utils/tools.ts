@@ -33,7 +33,7 @@ export function getValue(row: AnyType, column: string, config: CellConfigType = 
     res = '';
   }
   if (res !== '' && res != null) {
-    res = res as string + (config.unit || '');
+    res = typeof res !== 'object' ? (res as string + (config.unit || '')) : res;
     return filterValue(res, config.filter);
   }
   return filterValue(emptyText, config.filter);

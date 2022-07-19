@@ -18,12 +18,15 @@ export default defineComponent({
 <script lang="ts" setup>
 import { ref } from 'vue'
 const searchConfig = ref([
-  { catalog: 'input', name: '名称', prop: 'name' },
+  { catalog: 'input', name: '名称', prop: 'param.name' },
   { catalog: 'datepicker', type: 'daterange', prop: 'date' },
 ])
-const params = ref({})
+const params = ref({
+  param: {}
+})
 
 function handleSearch() {
+  console.log(params.value)
   console.log('trigger search');
 }
 

@@ -41,7 +41,7 @@ export default defineComponent({
       type: Object as PropType<{ preserveRowKeys?: boolean, selectedRowKeys: any[], onChange: (selection: any[], rows: any[], row: any) => void }>,
       default: () => ({
         selectedRowKeys: [],
-        onChange: () => {},
+        onChange: () => ({}),
       })
     },
     rowKey: [String, Function],
