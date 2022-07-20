@@ -24,7 +24,6 @@ export default defineComponent({
     const instance = getCurrentInstance();
 
     const uploadVisible = ref(false);
-    const visible = ref(false);
     const searchConfig = ref<RenderInputConfigType[]>();
     const defaultParams = ref();
 
@@ -67,23 +66,23 @@ export default defineComponent({
     }
 
     const create = () => (
-      context.slots.create
+      context.slots.create?.()
       || (props.create && <bc-button type="primary" onClick={() => { context.emit('create') }}>新增</bc-button>)
     );
     const search = () => (
-      context.slots.search
+      context.slots.search?.()
       || (<bc-button type="primary" onClick={handleSearch}>搜索</bc-button>)
     );
     const reset = () => (
-      context.slots.reset
+      context.slots.reset?.()
       || (<bc-button type="primary" class="el-icon-refresh" onClick={handleReset}>重置</bc-button>)
     );
     const upload = () => (
-      context.slots.upload
+      context.slots.upload?.()
       || (props.upload && <bc-button onClick={handleUpload}>{props.upload.text || '导入'}</bc-button>)
     );
     const exportButton = () => (
-      context.slots.export
+      context.slots.export?.()
       || (needExport && <bc-button onClick={() => { context.emit('export') }}>导出</bc-button>)
     );
     const layout = { create, search, reset, upload, export: exportButton, advance: () => <></> };
