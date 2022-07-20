@@ -30,15 +30,27 @@ search/default
 
 | 属性          | 说明                       | 类型     | 可选值                                     | 默认值                                             |
 | :------------ | :------------------------- | :------- | :----------------------------------------- | :------------------------------------------------- |
+| v-model/modelValue| 绑定值 | object | - | - |
 | page-name     | 分页时当前页码的字段       | string   | -                                          | 'page'                                             |
 | default-value | 重置时的默认值             | object   | -                                          | -                                                  |
 | create        | 是否显示新增按钮           | boolean  | -                                          | false                                              |
-| config        | 搜索栏的可查询内容         | object   | -                                          | -                                                  |
+| config        | 搜索栏的可查询内容         | config[] | -                                          | -                                                  |
 | search        | 搜索和重置触发时的回调函数 | function | -                                          | -                                                  |
 | import        | 是否显示上传按钮           | boolean  | -                                          | false                                              |
 | upload        | 文件上传的相关配置         | object   | -                                          | -                                                  |
 | export        | 是否显示导出按钮           | boolean  | -                                          | true                                               |
 | layout        | 搜索栏默认按钮的布局       | array    | `seach`/`reset`/`upload`/`export`/`create` | ['create', 'search', 'reset', 'upload', 'export'], |
+
+## Config属性
+
+| 名称 | 说明 |
+| :---| :----|
+| prop | 绑定值的字段（支持链式调用） |
+| catalog | 支持的搜索方式（`input`, `select`, `datepicker`）|
+
+:::tip
+不设置`catalog`时，可以通过对应`prop`的具名插槽自定义搜索方式
+:::
 
 ## 插槽
 
