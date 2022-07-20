@@ -40,10 +40,11 @@ export const renderUnit = (
       model-value={modelValue}
       placeholder={name}
       {...{
+        ...params,
         'onUpdate:modelValue': (val: string) => updateData(value, prop, val, context),
       }}
       onkeyup={(e: KeyboardEvent) => e.code === 'Enter' && handleSearch(context)}
-      {...{ attrs: params }}
+      // {...{ : params }}
     />
   } else if (catalog === 'select') {
     return <bc-select
