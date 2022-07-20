@@ -8,6 +8,7 @@ import { copyText } from '@basic-components/utils';
 export default defineComponent({
   name: 'BcInput',
   props: inputProps,
+  inheritAttrs: false,
   components: {
     DocumentCopy,
     ElInput
@@ -65,7 +66,7 @@ export default defineComponent({
       />
     )
     const text = () => (
-      <span>{context.attrs.value}</span>
+      <span>{context.attrs.modelValue}</span>
     )
     return props.onlyDisplay ? text : input;
   },
